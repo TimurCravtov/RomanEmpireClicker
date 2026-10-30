@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import '../styles/achievements.css'
 
-const TOAST_MS = 4000
+const TOAST_MS = 5000
 
 function Toast({ toast, onDismiss }) {
   useEffect(() => {
@@ -9,13 +9,13 @@ function Toast({ toast, onDismiss }) {
     return () => clearTimeout(id)
   }, [toast.key, onDismiss])
 
-  const { achievement } = toast
   return (
-    <div className="toast" role="status">
-      <img src={achievement.icon} alt="" />
+    <div className="toast" role="status" onClick={() => onDismiss(toast.key)}>
+      <img src={toast.icon} alt="" />
       <div>
-        <div className="toast__title">{achievement.name}</div>
-        <div className="toast__desc">{achievement.desc}</div>
+        {toast.label && <div className="toast__label">{toast.label}</div>}
+        <div className="toast__title">{toast.title}</div>
+        <div className="toast__desc">{toast.desc}</div>
       </div>
     </div>
   )

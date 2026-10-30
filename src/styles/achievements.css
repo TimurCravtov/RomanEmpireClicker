@@ -53,6 +53,19 @@
   height: 36px;
 }
 
+.toast {
+  cursor: pointer;
+  max-width: 380px;
+}
+
+.toast__label {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--marble-dim);
+  font-family: var(--font-display);
+}
+
 .toast__title {
   font-family: var(--font-display);
   color: var(--gold-300);
