@@ -14,6 +14,12 @@ npm run build    # production build
 npm test         # engine unit tests (vitest)
 ```
 
+## Deploy
+
+Pushing to `main` runs tests, builds, and publishes to GitHub Pages
+(`.github/workflows/deploy.yml`). One-time setup: in the repo go to
+**Settings → Pages → Build and deployment → Source: GitHub Actions**.
+
 ## Features
 
 - 11 buildings with exponential costs and ×1 / ×10 / ×100 / Max buying
