@@ -24,6 +24,43 @@
   }
 }
 
+.scroll__langs {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid rgba(59, 36, 20, 0.25);
+  border-radius: 6px;
+}
+
+.scroll__langs button {
+  min-width: 32px;
+  padding: 4px 6px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.scroll__langs button:hover,
+.scroll__langs button:focus-visible {
+  background: rgba(59, 36, 20, 0.1);
+  color: var(--crimson-700);
+  outline: none;
+}
+
+.scroll__langs button[aria-pressed='true'] {
+  background: var(--crimson-700);
+  color: var(--gold-300);
+}
+
 .scroll__close {
   position: absolute;
   top: 8px;

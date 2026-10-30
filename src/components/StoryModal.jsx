@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { sfx } from '../audio/sfx.js'
 import { chapterEffects } from '../game/story.js'
 import { useI18n } from '../i18n/index.jsx'
+import LanguagePicker from './LanguagePicker.jsx'
 import '../styles/story.css'
 
 function Boons({ effects }) {
@@ -47,6 +48,7 @@ export default function StoryModal({ chapter: source, mode, chosen, onChoose, on
         aria-labelledby="story-title"
         onClick={(e) => e.stopPropagation()}
       >
+        <LanguagePicker className="scroll__langs" />
         {canClose && (
           <button className="scroll__close" onClick={onClose} aria-label={t('story.close')}>
             ×
