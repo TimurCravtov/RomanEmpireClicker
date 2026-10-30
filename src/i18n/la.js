@@ -1,2 +1,396 @@
-// filled in by the la translation commit
-export default { ui: {} }
+export default {
+  ui: {
+    meta: { title: 'Imperium Clicker · Imperium Romanum aedifica, denarium post denarium' },
+    header: { sub: 'SPQR · {rank} · Dynastia: {dynasty}' },
+    treasury: {
+      label: 'Denarii in aerario',
+      perSecond: '{n} singulis secundis',
+      perClick: '+{n} singulis ictibus',
+      aria: 'Denarium percute ut {n} denarios colligas',
+    },
+    buff: { click: 'ictus', production: 'proventus', line: '{name}: {target} ×{mult} · {s}s' },
+    shop: {
+      title: 'Opera Publica',
+      qtyAria: 'Quot emas',
+      max: 'Max',
+      unknown: '???',
+      undiscovered: 'Nondum repertum',
+      rate: '{n} denarii/s',
+      each: '+{n} denarii/s singula',
+      bulk: '{n} pro {cost}',
+    },
+    edicts: {
+      title: 'Edicta',
+      enacted: 'Lata: {n}',
+      none: 'Nulla edicta adsunt. Plura aedifica ut nova reseres.',
+      more: 'Alia edicta exspectant: {n}…',
+    },
+    upgrade: {
+      clickDesc: 'Ictus duplo plus valent.',
+      buildingDesc: '{building}: proventus duplicatur.',
+      globalDesc: 'Omnis proventus {pct}.',
+    },
+    triumphs: { title: 'Triumphi' },
+    gloria: {
+      title: 'Gloria',
+      ascensions: 'Ascensus: {n}',
+      glory: 'Gloria:',
+      bonus: '(+{p}% proventus et ictuum)',
+      ready: 'Ascende nunc et gloriam ({n}) merebis.',
+      notReady: 'Uno regno circiter milies centena milia denariorum quaere ut gloriam vindices.',
+      button: 'Purpuram indue',
+      confirm:
+        'Ascendesne et novam dynastiam condes?\n\nDenarii, aedificia et edicta delebuntur. Gloriam ({g}) accipies (+{p}% proventus).',
+    },
+    chronicle: {
+      title: 'Annales',
+      count: 'Capita: {a} / {b}',
+      chapter: 'Caput {n}',
+      next: 'Sequitur: caput {n}',
+      progressAria: 'Progressus ad caput sequens',
+      complete: 'Annales perfecti sunt. Ascende, et Roma iterum surgat.',
+      unwritten: 'Nondum scriptum',
+      boons: 'Munera huius regni ({n})',
+      chaptersAria: 'Capita',
+    },
+    story: {
+      decision: 'Consilium tuum:',
+      history: 'Quid historia tradat',
+      boon: 'Munus huius regni',
+      awaits: 'Hoc consilium te in regno praesenti exspectat.',
+      continue: 'Perge',
+      close: 'Claude',
+    },
+    toast: { triumph: 'Triumphus', omen: 'Omen', gain: '+{n} denarii.' },
+    welcome: {
+      title: 'Ave, Imperator!',
+      body: 'Provinciae tuae per {time} te absente laboraverunt et {n} denarios attulerunt.',
+      collect: 'Accipe',
+    },
+    city: {
+      name: 'Roma',
+      meta: '{year} · {n} animae',
+      hint: 'Trahe ut circumspicias · rota ut propius videas',
+      aria: 'Roma tua, tribus dimensionibus ficta',
+    },
+    omen: { aria: 'Omen a Fortuna! Preme ut capias.' },
+    footer: {
+      credits: 'Imagunculae a Lorc, Delapouite et Skoll, ex',
+      reset: 'Ludum renova',
+      resetConfirm: 'Delebisne omnia, etiam gloriam et triumphos?',
+    },
+    settings: {
+      title: 'Optiones',
+      open: 'Optiones',
+      sound: 'Sonus',
+      effects: 'Soni effectus',
+      language: 'Lingua',
+      music: 'Musica',
+      on: 'Sonat',
+      off: 'Tacet',
+      volume: 'Vis soni',
+      close: 'Claude',
+      musicOn: 'Musicam excita',
+      musicOff: 'Musicam sile',
+      musicNote: 'Carmen novum tibiae, cornus, lyrae et tympani, dum ludis compositum.',
+    },
+    // Romans counted years from the founding of the city
+    year: { bc: 'a.u.c. {auc}', ad: 'a.u.c. {auc}' },
+    duration: { h: 'h', m: 'm', s: 's' },
+    effect: {
+      building: '{building}: proventus ×{mult}',
+      global: 'Omnis proventus {pct}',
+      click: 'Denarii singulis ictibus ×{mult}',
+      omenRate: 'Omina bis saepius apparent',
+    },
+  },
+
+  buildings: {
+    farm: { name: 'Ager', blurb: 'Frumentum legiones alit et aerarium implet.' },
+    colonus: { name: 'Colonus', blurb: 'Coloni pensionem denariis solvunt.' },
+    amphora: { name: 'Mercator Amphorarum', blurb: 'Vinum et oleum ex omni ora Maris Nostri.' },
+    aqueduct: { name: 'Aquae Ductus', blurb: 'Aqua recens, et vectigal ab omni urbe quam attingit.' },
+    century: { name: 'Centuria', blurb: 'Octoginta viri post scuta; praeda sequitur.' },
+    barracks: { name: 'Castra', blurb: 'Castra in omni limite, vectigal in omni via.' },
+    trireme: { name: 'Classis Triremium', blurb: 'Mare Nostrum Romae est. Portoria quoque.' },
+    ballista: { name: 'Ballistae', blurb: 'Pactio per tela. Tributum celeriter advenit.' },
+    temple: { name: 'Templum Iovis', blurb: 'Di decimas probant.' },
+    forum: { name: 'Forum Romanum', blurb: 'Cor mercaturae totius orbis terrarum.' },
+    senate: { name: 'Senatus', blurb: 'Senatus Populusque Romanus. Vectigalia, plerumque.' },
+  },
+
+  upgrades: {
+    gladius: 'Gladius Acutus',
+    helmet: 'Imperium Centurionis',
+    laurels: 'Laurus Victoriae',
+    scroll: 'Edictum Imperatoris',
+    'pax-romana': 'Pax Romana',
+    'cursus-publicus': 'Cursus Publicus',
+    'imperial-cult': 'Cultus Imperatorius',
+  },
+
+  achievements: {
+    'first-click': { name: 'Ave, Caesar!', desc: 'Denarium semel percute.' },
+    'clicks-100': { name: 'Exactor Indefessus', desc: 'Centies percute.' },
+    'clicks-1000': { name: 'Manus Imperatoris', desc: 'Milies percute.' },
+    'earn-1k': { name: 'Villa Modica', desc: 'Mille denarios quaere.' },
+    'earn-1m': { name: 'Census Equestris', desc: 'Decies centena milia denariorum quaere.' },
+    'earn-1b': { name: 'Crasso Ditior', desc: 'Decies milies centena milia denariorum quaere.' },
+    'earn-1t': { name: 'Dominus Maris Nostri', desc: 'Mille miliens milies denarios quaere: 1 000 000 000 000.' },
+    'farms-10': { name: 'Horreum Romae', desc: 'Decem agros posside.' },
+    'aqueduct-1': { name: 'Aqua Populo', desc: 'Aquae ductum aedifica.' },
+    'century-10': { name: 'Linea Rubra', desc: 'Decem centurias conscribe.' },
+    'temple-1': { name: 'Pontifex Maximus', desc: 'Templum Iovis dedica.' },
+    'senate-1': { name: 'Senatus Frequens', desc: 'Senatum convoca.' },
+    'buildings-100': { name: 'Urbs Aeterna', desc: 'Centum aedificia posside.' },
+    'upgrades-10': { name: 'Reformator', desc: 'Decem edicta fer.' },
+    'glory-1': { name: 'Ad Gloriam', desc: 'Primum ascende.' },
+    'omen-1': { name: 'Fortunae Carus', desc: 'Omen cape.' },
+    'omen-25': { name: 'Augur', desc: 'Viginti quinque omina cape.' },
+    rubicon: { name: 'Alea Iacta Est', desc: 'Rubiconem transi.' },
+    fall: { name: 'Sic Transit Gloria Mundi', desc: 'Occasum Occidentis vide.' },
+    historian: { name: 'Livii Heres', desc: 'Omnia annalium capita lege.' },
+  },
+
+  ranks: ['Plebeius', 'Legionarius', 'Centurio', 'Tribunus', 'Senator', 'Consul', 'Caesar', 'Imperator Augustus'],
+
+  dynasties: [
+    'Domus Romuli',
+    'Iulio-Claudia',
+    'Flavia',
+    'Nervo-Antonina',
+    'Severiana',
+    'Constantiniana',
+    'Valentiniana',
+    'Theodosiana',
+    'Iustiniana',
+    'Heracliana',
+    'Macedonica',
+    'Comnena',
+    'Palaeologa',
+  ],
+
+  omens: {
+    triumph: {
+      name: 'Triumphus!',
+      text: 'Imperator victor quadriga per Viam Sacram vehitur, spoliis belli ante eum latis.',
+    },
+    circuses: { name: 'Panem et Circenses', text: 'Ludi in Circo Maximo! Turba clamat et pecunia fluit. Proventus ×5.' },
+    saturnalia: { name: 'Io Saturnalia!', text: 'Domini servis ministrant et mundus evertitur. Ictus ×10.' },
+    auspices: { name: 'Auspicia Secunda', text: 'Augures aves a laeva volantes vident: di probant. Proventus ×2.' },
+  },
+
+  headlines: {
+    garum: 'Pretium gari in Foro Boario iterum crescit. Mercatores caelum culpant.',
+    factions: 'Fautores Prasinorum et Venetorum rogantur ut rixas extra Circum habeant.',
+    graffitiWall: 'Inscriptio Pompeiana: “Admiror te, paries, non cecidisse, qui tot scriptorum taedia sustineas.”',
+    graffitiDiphilus: 'Inscriptio Pompeiana: “Gaius Pumidius Diphilus hic fuit.”',
+    graffitiNero: 'Inscriptio Pompeiana: “Praegustator Neronis Caesaris dicit: hoc venenum est.”',
+    toga: 'Toga amissa, in thermis postremum visa. Praemium promittitur. Nihil quaeritur.',
+    philosopher: 'Philosophus in thermis secum ipse disputans visus est. Iterum.',
+    augurs: 'Augures aves secundas super Palatium nuntiant. Romulus gaudet.',
+    consuls: 'Consules in annum proximum creati. Uterque se alteri diligenter intercessurum promittit.',
+    geese: 'Anseres sacri Iunonis pompa honorantur. Canes, qui non latraverunt, minus.',
+    appia: 'Viatores nuntiant Viam Appiam iam Capuam usque pertinere.',
+    rowers: 'Novi remiges adhuc in subselliis in terra exercentur. Incolae rident.',
+    hannibalAdPortas: 'Matres pueros proterviores duobus verbis compescunt: “Hannibal ad portas!”',
+    cato: 'Cato orationem de vectigali olei finit: “Ceterum censeo Carthaginem esse delendam.”',
+    recruiters: 'Conquisitores voluntarios sine agris quaerunt. Arma non praebentur; crura requiruntur.',
+    menander: 'Caesar ad Rubiconem Menandrum poetam Graecum citavisse dicitur. Senatores non moventur.',
+    calpurnia: 'Calpurnia, uxor Caesaris, somnia tristia narrat. Spurinna haruspex consentit.',
+    janus: 'Ianus Quirinus clausus est. Orbis terrarum, semel tandem, pacatus.',
+    grainFleet: 'Classis frumentaria ex Aegypto Ostiam advenit. Panis vilior fit.',
+    titusGames: 'Titus centum dies ludorum edicit. Milia ferarum exspectantur.',
+    trajanMarket: 'Mercatus Traiani aperitur: circiter centum quinquaginta tabernae sub uno tecto.',
+    emperorAcclaimed: 'Legiones alium imperatorem salutaverunt. Moneta rogatur ut novas imagines acceleret.',
+    bosporus: 'Ad Bosporum aedificatur ubique. Fabri quaeruntur, marmor praebetur.',
+    odoacer: 'Odoacer insignia imperii Constantinopolim remittit: unum imperatorem, inquit, satis esse.',
+    robigalia: 'Agricolae Robigalia celebrant, Robigum deum orantes ut robiginem a frumento arceat.',
+    testaccio: 'Mons Testaceus crescit. Amphorae fractae iam decies centena milia numerantur.',
+    aqueductPipes: 'Curator aquarum iterum fistulas illicitas aquae ductibus insertas nuntiat.',
+    legionPace: 'Legionarii de gradu militari queruntur: viginti milia passuum quinque horis.',
+    pirates: 'Praedones Cilices oram vastant. Senatus de imperio extraordinario maritimo disputat.',
+    ballista: 'Fabri novum tormentum temptant. Vicini otium tranquillius rogant.',
+    vestals: 'Virgines Vestales ignem sacrum etiamnunc clare ardere nuntiant.',
+    catoFilibuster: 'Senatus sub occasum solis dimissus est, cum Cato Minor usque ad tenebras dixisset.',
+  },
+
+  chapters: {
+    founding: {
+      title: 'Roma Condita',
+      motto: 'Ab urbe condita',
+      text: [
+        'Fama est geminos, Romulum et Remum, in Tiberim expositos lupa lactante servatos esse. Adulti urbem in collibus ubi servati erant condere statuerunt. Romulus sulcum sacrum, pomerium, circa Palatium aratro duxit. Cum Remus irridens transiluisset, Romulus eum interfecit. Urbs nomen victoris accepit.',
+        'Roma nunc paucae casae supra paludem sunt. Olim Romani annos ab hoc momento numerabunt, ab urbe condita. Omnis nummus quem colligis aedificat quod sequitur.',
+      ],
+    },
+    republic: {
+      title: 'Res Publica',
+      motto: 'Senatus Populusque Romanus',
+      text: [
+        'Rex septimus, Tarquinius Superbus, metu regnabat. Cum filius eius Lucretiam nobilem violavisset, Lucius Iunius Brutus per pugionem eius iuravit se gentem regiam Roma expulsurum esse. Populus cum eo surrexit, et Tarquinii fugerunt.',
+        'Romani iuraverunt se numquam iterum regem passuros esse. Pro rege bini consules quotannis creabantur, quorum uterque alteri intercedere poterat. Imperium nunc ad rem publicam pertinebat.',
+      ],
+    },
+    gauls: {
+      title: 'Vae Victis',
+      motto: 'Vae victis',
+      text: [
+        'Galli duce Brenno exercitum Romanum ad Alliam fuderunt et in urbem indefensam irruperunt. Solum Capitolium restitit. Cum Galli noctu ascenderent, anseres sacri Iunonis clangore excitaverunt defensores, qui hostes deiecerunt.',
+        'Fame confecti Romani mille pondo auri pro libertate dare consenserunt. Cum pondera Gallica iniqua esse quererentur, Brennus gladium ponderi addidit: “Vae victis!” Quid Roma respondebit?',
+      ],
+      choices: {
+        pay: {
+          label: 'Aurum solve',
+          desc: 'Galli pretium accipiunt et abeunt. Roma reficitur, et agri in pace coluntur.',
+          note: 'Sic Polybius, scriptor Graecus, narrat.',
+        },
+        iron: {
+          label: 'Non auro, sed ferro',
+          desc: 'Camillus exsul inter pensandum advenit: “Ferro, non auro, recuperatur patria.” Galli expelluntur.',
+          note: 'Sic Livius narrat, quamquam multi historici dubitant.',
+        },
+      },
+    },
+    appia: {
+      title: 'Regina Viarum',
+      motto: 'Regina viarum',
+      text: [
+        'Appius Claudius Caecus censor duo opera incohavit quae Romam definirent. Primum fuit via strata ad meridiem Capuam usque, Via Appia, postea regina viarum appellata. Partes eius etiam hodie calcantur.',
+        'Alterum fuit Aqua Appia, primus aquae ductus Romae, qui aquam fontanam plus sedecim milia metrorum paene totam sub terra in urbem ducebat. Viae et aquae Romam sequentur quocumque legiones eius ibunt.',
+      ],
+    },
+    navy: {
+      title: 'Roma Mare Petit',
+      motto: 'Mare nostrum',
+      text: [
+        'Bellum cum Carthagine, magna Africae potentia maritima, Romam paene sine classe invenit. Ad exemplar navis Punicae in vadis haerentis Romani plus centum naves circiter sexaginta diebus fecerunt, remigibus in subselliis in terra exercitis.',
+        'Corvum addiderunt, pontem cum aculeo quo pugna navalis in pedestrem verteretur. Apud Mylas consul Gaius Duilius primam magnam victoriam navalem Romanorum reportavit.',
+      ],
+    },
+    hannibal: {
+      title: 'Hannibal ad Portas',
+      motto: 'Hannibal ad portas',
+      text: [
+        'Hannibal Poenus cum exercitu et elephantis Alpes transiit et copias Romanas ad Trebiam et ad Trasumenum lacum delevit. Apud Cannas exercitum Romanum multo maiorem circumvenit et occidit; fortasse ille dies in historia Romana cruentissimus fuit.',
+        'Roma pacem facere noluit. His annis desperatis res publica novum nummum argenteum cudere coepit: denarium. Quomodo Roma bellum geret?',
+      ],
+      choices: {
+        fabius: {
+          label: 'Fabius Cunctator',
+          desc: 'Proelium vita. Hannibalem sequere, commeatus intercipe, tempus eum conterat.',
+          note: 'Roma post Cannas hoc consilium secuta est, unde Fabius Cunctator appellatus est.',
+        },
+        scipio: {
+          label: 'Scipio in Africam',
+          desc: 'Bellum ad ipsam Carthaginem transfer, ut Hannibal domum ad eam defendendam redire cogatur.',
+          note: 'Scipio ita fecit et Hannibalem apud Zamam vicit.',
+        },
+      },
+    },
+    carthage: {
+      title: 'Carthago Delenda Est',
+      motto: 'Ceterum censeo',
+      text: [
+        'Per multos annos Cato Maior omnem orationem in senatu, de quacumque re, isdem verbis finiebat: “Carthaginem esse delendam.” Post obsidionem triennalem Scipio Aemilianus urbem funditus delevit. Eodem anno exercitus Romani Corinthum diripuerunt.',
+        'Mare Mediterraneum fiebat quod Romani mare nostrum appellabant. (Fabula Romanos agros Carthaginis sale conspersisse recentiorum inventum est.)',
+      ],
+    },
+    marius: {
+      title: 'Muli Mariani',
+      motto: 'Muli Mariani',
+      text: [
+        'Gaius Marius, homo novus sine maioribus nobilibus, septies consul futurus erat. Traditur legionem refecisse: etiam capite censi nomina dare poterant, publice armati, quibus agri post missionem promittebantur.',
+        'Milites eius sarcinas graves ipsi portabant et muli Mariani appellabantur. Omnis legio aquilam argenteam ut signum sacrum accepit. Sed milites nunc praemia ab imperatore, non a senatu, exspectabant; quod periculum mox evenit.',
+      ],
+    },
+    rubicon: {
+      title: 'Rubico',
+      motto: 'Alea iacta est',
+      text: [
+        'Gaius Iulius Caesar Galliam subegit, et legiones eum amant. Inimici in senatu iubent eum exercitum dimittere et Romam privatum redire, ubi iudicium eum manet.',
+        'Mense Ianuario ad Rubiconem consistit, parvum flumen quod finem provinciae eius signat. Cum exercitu transire proditio est et bellum civile.',
+      ],
+      choices: {
+        cross: {
+          label: 'Alea iacta est',
+          desc: 'Flumen transi et Romam pete.',
+          note: 'Caesar transiit. Pompeius et magna pars senatus paucis diebus fugerunt.',
+        },
+        obey: {
+          label: 'Senatui pare',
+          desc: 'Imperium depone et veteri rei publicae confide.',
+          note: 'Caesar non paruit. Historici adhuc disputant an res publica aliter superfutura fuisset.',
+        },
+      },
+    },
+    ides: {
+      title: 'Idus Martiae',
+      motto: 'Kai su, teknon?',
+      text: [
+        'Dictator perpetuus factus Caesar Idibus Martiis in curia Pompei senatum adiit. Senatores duce Bruto et Cassio pugiones strinxerunt eumque tribus et viginti plagis confoderunt. “Et tu, Brute?” verba Shakespearii sunt. Suetonius tradit quosdam dixisse Caesarem Graece locutum esse: “Et tu, fili?”',
+        'Percussores rem publicam servare volebant. Pro eo tredecim anni belli civilis secuti sunt. Senatus dictatorem occisum deum declaravit, Divum Iulium, et templum surrexit ubi corpus crematum erat.',
+      ],
+    },
+    augustus: {
+      title: 'Augustus',
+      motto: 'Pax Romana',
+      text: [
+        'Octavianus, Caesaris heres adoptivus, Antonium et Cleopatram apud Actium vicit. Senatus ei novum nomen dedit: Augustum. Ipse se tantum principem appellabat, formas rei publicae servans dum omnem eius potestatem tenebat.',
+        'Gloriabatur se urbem latericiam accepisse, marmoream relinquere. Ianus Quirinus, bello apertus, clausus est. Duo saecula Pacis Romanae coeperunt.',
+      ],
+    },
+    colosseum: {
+      title: 'Panem et Circenses',
+      motto: 'Panem et circenses',
+      text: [
+        'Vespasianus amphitheatrum ingens in loco stagni siccati invisae domus Neronis exstruxit. Filius eius Titus id centum diebus ludorum dedicavit. Circiter quinquaginta milia spectatorum gladiatores, venationes, supplicia spectabant.',
+        'Iuvenalis poeta irrisit populum qui olim imperia et fasces dabat, nunc duas tantum res anxius optare: panem et circenses. Fortuna favet eis qui turbae dant quod cupit.',
+      ],
+    },
+    trajan: {
+      title: 'Optimus Princeps',
+      motto: 'Felicior Augusto, melior Traiano',
+      text: [
+        'Traianus, primus imperator extra Italiam natus, Daciam vicit, cuius aurifodinae novum Forum solverunt. Columna eius etiam nunc Romae stat, cuius zophorus spiralis legiones ostendit incedentes, aedificantes, tormenta mittentes.',
+        'Ad sinum Persicum usque progressus est. Mortuo eo imperium maxime patebat, a Britannia ad Mesopotamiam. Senatus novo cuique principi optabat ut “felicior Augusto, melior Traiano” esset.',
+      ],
+    },
+    crisis: {
+      title: 'Discrimen Saeculi Tertii',
+      motto: 'Imperium fractum',
+      text: [
+        'Post caedem Severi Alexandri imperium se ipsum lacerabat. Quinquaginta annis viginti fere viri purpuram sibi vindicaverunt, plerique a militibus suis occisi. Secuta sunt pestilentia et incursiones Persarum Gothorumque. Aliquamdiu imperium in tres partes divisum est.',
+        'Ut exercitibus stipendia solverent, imperatores argentum in denario minuebant, donec fere aes esset argento tinctum. Pretia ingentia facta sunt. Quomodo imperium contineas?',
+      ],
+      choices: {
+        debase: {
+          label: 'Monetam corrumpe',
+          desc: 'Plures nummos minore argento cude. Facilis pecunia nunc, putredo infra.',
+          note: 'Hoc ipsum imperatores illius discriminis fecerunt.',
+        },
+        diocletian: {
+          label: 'Reformationes Diocletiani',
+          desc: 'Imperium inter quattuor imperatores divide, exercitum et tributa a fundamentis refice.',
+          note: 'Diocletianus discrimini finem fecit, quamquam celebre eius edictum de pretiis frustra fuit.',
+        },
+      },
+    },
+    constantine: {
+      title: 'Nova Roma',
+      motto: 'In hoc signo vinces',
+      text: [
+        'Ante proelium ad Pontem Mulvium Constantinus signum in caelo vidisse et haec verba audivisse dicitur: “In hoc signo vinces.” Vicit, et anno sequenti edicto Mediolanensi Christianis libertas religionis data est.',
+        'Novum caput imperii ad Bosporum dedicavit, in confinio itinerum mercatorum inter Europam et Asiam: Novam Romam, mox Constantinopolim appellatam.',
+      ],
+    },
+    fall: {
+      title: 'Occasus Occidentis',
+      motto: 'Sic transit gloria mundi',
+      text: [
+        'Visigothi duce Alarico Romam diripuerunt, primus exercitus externus intra muros eius post Brennum, octingentis annis ante. Odoacer dux Romulum Augustulum puerum imperatorem, qui nomina et conditoris urbis et primi imperatoris gerebat, deposuit et insignia imperii Constantinopolim misit. Occidens imperatorem non iam habebat.',
+        'Neque tamen Roma finita est. Leges, lingua, viae eius superstites fuerunt, et in Oriente imperium mille amplius annos duravit. Regnum tuum nunc historia est. Purpuram indue, et Roma iterum surgat.',
+      ],
+    },
+  },
+}

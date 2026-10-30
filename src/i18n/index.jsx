@@ -48,8 +48,9 @@ export function createTranslator(lang) {
   const year = (text) => {
     const bc = text.match(/^(\d+) BC$/)
     const ad = text.match(/^AD (\d+)$/)
-    if (bc) return t('year.bc', { n: bc[1] })
-    if (ad) return t('year.ad', { n: ad[1] })
+    // {auc} counts ab urbe condita, from the founding in 753 BC (which is year 1)
+    if (bc) return t('year.bc', { n: bc[1], auc: 754 - Number(bc[1]) })
+    if (ad) return t('year.ad', { n: ad[1], auc: 753 + Number(ad[1]) })
     return text
   }
 
