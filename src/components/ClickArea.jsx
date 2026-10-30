@@ -1,13 +1,15 @@
-import { useRef, useState } from 'react'
+import { lazy, useRef, useState } from 'react'
 import { ICONS } from '../game/data.js'
 import { formatNumber } from '../game/format.js'
 import { OMENS_BY_ID } from '../game/omens.js'
+import Scene3D from './Scene3D.jsx'
 import '../styles/omens.css'
 import '../styles/click-area.css'
 
+const CoinScene = lazy(() => import('../three/CoinScene.jsx'))
 const FLOATER_LIFETIME_MS = 900
 
-export default function ClickArea({ denarii, perClick, perSecond, buffs, onClick }) {
+export default function ClickArea({ denarii, perClick, perSecond, clicks, buffs, onClick }) {
   const areaRef = useRef(null)
   const nextId = useRef(0)
   const [floaters, setFloaters] = useState([])
@@ -37,9 +39,14 @@ export default function ClickArea({ denarii, perClick, perSecond, buffs, onClick
         <img src={ICONS.coins} alt="" width="16" height="16" style={{ verticalAlign: '-2px' }} /> {formatNumber(perSecond)} per second
       </div>
 
-      <button className="eagle" onClick={handleClick} aria-label={`Click the eagle to collect ${formatNumber(perClick)} denarii`}>
-        <img src={ICONS.eagle} alt="" draggable="false" />
-      </button>
+      <div className="coin-stage">
+        <button className="eagle" onClick={handleClick} aria-label={`Strike the denarius to collect ${formatNumber(perClick)} denarii`} />
+        <div className="coin-stage__canvas" aria-hidden="true">
+          <Scene3D fallback={<img className="coin-fallback" src={ICONS.eagle} alt="" draggable="false" />}>
+            <CoinScene pulse={clicks} />
+          </Scene3D>
+        </div>
+      </div>
       <div className="click-area__hint muted">+{formatNumber(perClick)} per click</div>
 
       {buffs.length > 0 && (

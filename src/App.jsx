@@ -29,6 +29,7 @@ export default function App() {
             denarii={state.denarii}
             perClick={stats.perClick}
             perSecond={stats.perSecond}
+            clicks={state.clicks}
             buffs={state.buffs}
             onClick={actions.click}
           />
