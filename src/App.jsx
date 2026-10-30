@@ -1,5 +1,7 @@
 import ClickArea from './components/ClickArea.jsx'
 import Header from './components/Header.jsx'
+import Shop from './components/Shop.jsx'
+import Upgrades from './components/Upgrades.jsx'
 import { useGame } from './hooks/useGame.js'
 import './styles/base.css'
 import './styles/layout.css'
@@ -13,6 +15,12 @@ export default function App() {
       <main className="columns">
         <div className="column">
           <ClickArea denarii={state.denarii} perClick={stats.perClick} perSecond={stats.perSecond} onClick={actions.click} />
+        </div>
+        <div className="column">
+          <Upgrades state={state} onBuy={actions.buyUpgrade} />
+        </div>
+        <div className="column column--shop">
+          <Shop denarii={state.denarii} owned={state.owned} perBuilding={stats.perBuilding} onBuy={actions.buyBuilding} />
         </div>
       </main>
     </div>
