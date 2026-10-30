@@ -12,11 +12,13 @@ import Toasts from './components/Toasts.jsx'
 import Upgrades from './components/Upgrades.jsx'
 import WelcomeBack from './components/WelcomeBack.jsx'
 import { useGame } from './hooks/useGame.js'
+import { useI18n } from './i18n/index.jsx'
 import './styles/base.css'
 import './styles/layout.css'
 
 export default function App() {
   const { state, stats, actions, toasts, dismissToast, welcomeBack, omen, claimOmen, story } = useGame()
+  const { t } = useI18n()
 
   return (
     <div className="app">
@@ -47,13 +49,13 @@ export default function App() {
           <Shop denarii={state.denarii} owned={state.owned} perBuilding={stats.perBuilding} onBuy={actions.buyBuilding} />
           <Upgrades state={state} onBuy={actions.buyUpgrade} />
           <footer className="footer muted">
-            Icons by Lorc, Delapouite &amp; Skoll from <a href="https://game-icons.net">game-icons.net</a> (CC BY 3.0).
+            {t('footer.credits')} <a href="https://game-icons.net">game-icons.net</a> (CC BY 3.0).
             <button
               onClick={() => {
-                if (window.confirm('Erase all progress, including Glory and achievements?')) actions.reset()
+                if (window.confirm(t('footer.resetConfirm'))) actions.reset()
               }}
             >
-              Reset game
+              {t('footer.reset')}
             </button>
           </footer>
         </aside>

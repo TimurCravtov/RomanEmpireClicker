@@ -1,20 +1,24 @@
 import { useEffect } from 'react'
-import { describeEffect } from '../game/effects.js'
 import { chapterEffects } from '../game/story.js'
+import { useI18n } from '../i18n/index.jsx'
 import '../styles/story.css'
 
 function Boons({ effects }) {
+  const i18n = useI18n()
   if (effects.length === 0) return null
   return (
     <ul className="boons">
       {effects.map((e, i) => (
-        <li key={i}>{describeEffect(e)}</li>
+        <li key={i}>{i18n.effect(e)}</li>
       ))}
     </ul>
   )
 }
 
-export default function StoryModal({ chapter, mode, chosen, onChoose, onClose }) {
+export default function StoryModal({ chapter: source, mode, chosen, onChoose, onClose }) {
+  const i18n = useI18n()
+  const { t } = i18n
+  const chapter = i18n.chapter(source)
   const awaitingChoice = Boolean(chapter.choices) && !chosen
   const canClose = !awaitingChoice
 
@@ -35,14 +39,14 @@ export default function StoryModal({ chapter, mode, chosen, onChoose, onClose })
         onClick={(e) => e.stopPropagation()}
       >
         {canClose && (
-          <button className="scroll__close" onClick={onClose} aria-label="Close">
+          <button className="scroll__close" onClick={onClose} aria-label={t('story.close')}>
             ×
           </button>
         )}
         <header className="scroll__head">
           <img src={chapter.icon} alt="" />
           <div className="scroll__kicker">
-            Chapter {chapter.numeral} · {chapter.year}
+            {t('chronicle.chapter', { n: chapter.numeral })} · {chapter.year}
           </div>
           <h2 id="story-title">{chapter.title}</h2>
           <p className="scroll__motto">{chapter.motto}</p>
@@ -70,12 +74,12 @@ export default function StoryModal({ chapter, mode, chosen, onChoose, onClose })
           <div className="outcome">
             <div className="boon-box">
               <div className="boon-box__title">
-                Your decision: <em>{chapter.choices.find((c) => c.id === chosen).label}</em>
+                {t('story.decision')} <em>{chapter.choices.find((c) => c.id === chosen).label}</em>
               </div>
               <Boons effects={chapterEffects(chapter, chosen)} />
             </div>
             <div className="history">
-              <div className="history__title">What history records</div>
+              <div className="history__title">{t('story.history')}</div>
               {chapter.choices.map((c) => (
                 <p key={c.id}>
                   <strong>{c.label}.</strong> {c.note}
@@ -87,19 +91,17 @@ export default function StoryModal({ chapter, mode, chosen, onChoose, onClose })
 
         {!chapter.choices && chapter.effects.length > 0 && (
           <div className="boon-box">
-            <div className="boon-box__title">Boon for this reign</div>
+            <div className="boon-box__title">{t('story.boon')}</div>
             <Boons effects={chapter.effects} />
           </div>
         )}
 
-        {chapter.choices && !chosen && mode === 'read' && (
-          <p className="scroll__note">This decision awaits you in the current reign.</p>
-        )}
+        {chapter.choices && !chosen && mode === 'read' && <p className="scroll__note">{t('story.awaits')}</p>}
 
         {canClose && (
           <div className="scroll__actions">
             <button className="btn" onClick={onClose} autoFocus>
-              {mode === 'new' ? 'Continue' : 'Close'}
+              {mode === 'new' ? t('story.continue') : t('story.close')}
             </button>
           </div>
         )}

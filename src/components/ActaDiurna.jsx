@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { eligibleHeadlines } from '../game/acta.js'
+import { useI18n } from '../i18n/index.jsx'
 import '../styles/omens.css'
 
 const ROTATE_MS = 10000
@@ -13,6 +14,7 @@ function pick(state, previous) {
 }
 
 export default function ActaDiurna({ state }) {
+  const i18n = useI18n()
   const stateRef = useRef(state)
   stateRef.current = state
   const [headline, setHeadline] = useState(() => pick(state, null))
@@ -25,8 +27,8 @@ export default function ActaDiurna({ state }) {
   return (
     <div className="acta" aria-live="polite">
       <span className="acta__label">Acta Diurna</span>
-      <span key={headline?.text} className="acta__text">
-        {headline?.text}
+      <span key={headline?.id} className="acta__text">
+        {headline && i18n.headline(headline)}
       </span>
     </div>
   )

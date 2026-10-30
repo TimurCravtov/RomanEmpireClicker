@@ -336,8 +336,8 @@ export const DYNASTIES = [
 
 const NUMERALS = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X']
 
-export function dynastyName(ascensions) {
-  const base = DYNASTIES[ascensions % DYNASTIES.length]
-  const cycle = Math.floor(ascensions / DYNASTIES.length)
+export function dynastyName(ascensions, names = DYNASTIES) {
+  const base = names[ascensions % names.length]
+  const cycle = Math.floor(ascensions / names.length)
   return cycle === 0 ? base : `${base} ${NUMERALS[Math.min(cycle + 1, 10)]}`
 }

@@ -10,12 +10,3 @@ export function formatNumber(value, decimals = 1) {
   const scaled = value / 1000 ** tier
   return `${scaled.toFixed(scaled < 100 ? decimals : 0)}${SUFFIXES[tier]}`
 }
-
-export function formatDuration(seconds) {
-  const s = Math.floor(seconds)
-  const h = Math.floor(s / 3600)
-  const m = Math.floor((s % 3600) / 60)
-  if (h > 0) return `${h}h ${m}m`
-  if (m > 0) return `${m}m ${s % 60}s`
-  return `${s}s`
-}

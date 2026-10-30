@@ -1,11 +1,13 @@
-import { describeEffect } from '../game/effects.js'
 import { nextChapter } from '../game/engine.js'
 import { formatNumber } from '../game/format.js'
 import { CHAPTERS, CHAPTERS_BY_ID, chapterEffects } from '../game/story.js'
+import { useI18n } from '../i18n/index.jsx'
 import '../styles/story.css'
 
 export default function Chronicle({ state, onRead }) {
-  const current = CHAPTERS_BY_ID[state.chapters[state.chapters.length - 1]]
+  const i18n = useI18n()
+  const { t } = i18n
+  const current = i18n.chapter(CHAPTERS_BY_ID[state.chapters[state.chapters.length - 1]])
   const next = nextChapter(state)
   const progress = next ? Math.min((state.runEarned - current.at) / (next.at - current.at), 1) : 1
   const boons = state.chapters.flatMap((id) => chapterEffects(CHAPTERS_BY_ID[id], state.choices[id]))
@@ -13,10 +15,7 @@ export default function Chronicle({ state, onRead }) {
   return (
     <section className="panel chronicle">
       <h2 className="panel__title">
-        Chronicle{' '}
-        <small>
-          {state.chapters.length} / {CHAPTERS.length} chapters
-        </small>
+        {t('chronicle.title')} <small>{t('chronicle.count', { a: state.chapters.length, b: CHAPTERS.length })}</small>
       </h2>
 
       <button className="chronicle__current" onClick={() => onRead(current.id)}>
@@ -33,7 +32,7 @@ export default function Chronicle({ state, onRead }) {
       {next ? (
         <div className="chronicle__next">
           <div className="chronicle__next-label">
-            <span>Next: Chapter {next.numeral}</span>
+            <span>{t('chronicle.next', { n: next.numeral })}</span>
             <span>
               {formatNumber(state.runEarned)} / {formatNumber(next.at)}
             </span>
@@ -44,25 +43,26 @@ export default function Chronicle({ state, onRead }) {
             aria-valuemin={0}
             aria-valuemax={100}
             aria-valuenow={Math.round(progress * 100)}
-            aria-label="Progress to the next chapter"
+            aria-label={t('chronicle.progressAria')}
           >
             <div className="bar__fill" style={{ width: `${progress * 100}%` }} />
           </div>
         </div>
       ) : (
-        <p className="chronicle__end muted">The chronicle is complete. Ascend, and let Rome rise again.</p>
+        <p className="chronicle__end muted">{t('chronicle.complete')}</p>
       )}
 
-      <div className="timeline" aria-label="Chapters">
+      <div className="timeline" aria-label={t('chronicle.chaptersAria')}>
         {CHAPTERS.map((c) => {
           const reached = state.chapters.includes(c.id)
+          const local = reached ? i18n.chapter(c) : null
           return (
             <button
               key={c.id}
               className={`timeline__dot${reached ? ' timeline__dot--reached' : ''}`}
               disabled={!reached}
               onClick={() => onRead(c.id)}
-              title={reached ? `${c.numeral}. ${c.title} (${c.year})` : 'Not yet written'}
+              title={reached ? `${c.numeral}. ${local.title} (${local.year})` : t('chronicle.unwritten')}
             >
               {c.numeral}
             </button>
@@ -72,10 +72,10 @@ export default function Chronicle({ state, onRead }) {
 
       {boons.length > 0 && (
         <details className="chronicle__boons">
-          <summary>Boons of this reign ({boons.length})</summary>
+          <summary>{t('chronicle.boons', { n: boons.length })}</summary>
           <ul className="boons">
             {boons.map((e, i) => (
-              <li key={i}>{describeEffect(e)}</li>
+              <li key={i}>{i18n.effect(e)}</li>
             ))}
           </ul>
         </details>

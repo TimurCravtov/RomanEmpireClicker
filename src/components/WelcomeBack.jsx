@@ -1,19 +1,23 @@
 import { ICONS } from '../game/data.js'
-import { formatDuration, formatNumber } from '../game/format.js'
+import { formatNumber } from '../game/format.js'
+import { useI18n } from '../i18n/index.jsx'
 import '../styles/achievements.css'
 
 export default function WelcomeBack({ gained, elapsed, onClose }) {
+  const i18n = useI18n()
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal" role="dialog" aria-modal="true" aria-labelledby="welcome-title" onClick={(e) => e.stopPropagation()}>
         <img src={ICONS.crown} alt="" width="64" height="64" />
-        <h2 id="welcome-title">Ave, Imperator!</h2>
+        <h2 id="welcome-title">{i18n.t('welcome.title')}</h2>
         <p>
-          Your provinces labored for <strong>{formatDuration(elapsed)}</strong> in your absence and delivered{' '}
-          <strong>{formatNumber(gained)}</strong> denarii.
+          {i18n.rich('welcome.body', {
+            time: <strong>{i18n.duration(elapsed)}</strong>,
+            n: <strong>{formatNumber(gained)}</strong>,
+          })}
         </p>
         <button className="btn" onClick={onClose} autoFocus>
-          Collect
+          {i18n.t('welcome.collect')}
         </button>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { lazy, useEffect, useMemo, useState } from 'react'
 import { formatNumber } from '../game/format.js'
 import { CHAPTERS_BY_ID } from '../game/story.js'
+import { useI18n } from '../i18n/index.jsx'
 import Scene3D from './Scene3D.jsx'
 import '../styles/city.css'
 
@@ -49,6 +50,7 @@ function useHudFrame() {
 }
 
 export default function CityView({ owned, chapters }) {
+  const { t, year } = useI18n()
   const frame = useHudFrame()
   const chapter = CHAPTERS_BY_ID[chapters[chapters.length - 1]]
   const population = useMemo(
@@ -57,19 +59,19 @@ export default function CityView({ owned, chapters }) {
   )
 
   return (
-    <section className="city" aria-label="Your Rome, rendered in 3D">
+    <section className="city" aria-label={t('city.aria')}>
       <div className="city__canvas">
         <Scene3D>
           <CityScene owned={owned} chapters={chapters} frame={frame} />
         </Scene3D>
       </div>
       <div className="city__caption">
-        <div className="city__name">Roma</div>
+        <div className="city__name">{t('city.name')}</div>
         <div className="city__meta">
-          {chapter.year} · {formatNumber(population)} souls
+          {t('city.meta', { year: year(chapter.year), n: formatNumber(population) })}
         </div>
       </div>
-      <div className="city__hint">Drag to look around · scroll to zoom</div>
+      <div className="city__hint">{t('city.hint')}</div>
     </section>
   )
 }

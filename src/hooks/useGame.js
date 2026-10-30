@@ -1,11 +1,8 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
-import { ACHIEVEMENTS } from '../game/data.js'
-import { describeEffect } from '../game/effects.js'
 import { applyOffline, computeStats, createInitialState, omenPayout, pendingChapter, reducer } from '../game/engine.js'
-import { formatNumber } from '../game/format.js'
 import { OMEN_BASE_INTERVAL_S, OMEN_LIFETIME_S, pickOmen } from '../game/omens.js'
 import { clearSave, loadGame, saveGame } from '../game/save.js'
-import { CHAPTERS_BY_ID, chapterEffects } from '../game/story.js'
+import { CHAPTERS_BY_ID } from '../game/story.js'
 
 const TICK_MS = 100
 const AUTOSAVE_MS = 5000
@@ -83,14 +80,13 @@ export function useGame() {
     return () => clearTimeout(timer)
   }, [])
 
-  // toast newly unlocked achievements
+  // toasts carry ids, not text, so they render in whatever language is active
   const seenAchievements = useRef(new Set(state.achievements))
   useEffect(() => {
     const fresh = state.achievements.filter((id) => !seenAchievements.current.has(id))
     for (const id of fresh) {
       seenAchievements.current.add(id)
-      const a = ACHIEVEMENTS.find((x) => x.id === id)
-      pushToast({ label: 'Triumph', icon: a.icon, title: a.name, desc: a.desc })
+      pushToast({ kind: 'achievement', id })
     }
   }, [state.achievements, pushToast])
 
@@ -105,8 +101,7 @@ export function useGame() {
       knownChapters.current.add(id)
       const chapter = CHAPTERS_BY_ID[id]
       if (!state.chronicleSeen.includes(id) || chapter.choices) continue
-      const boon = chapterEffects(chapter).map(describeEffect).join(' · ')
-      pushToast({ label: `Chapter ${chapter.numeral} · ${chapter.year}`, icon: chapter.icon, title: chapter.title, desc: boon || chapter.motto })
+      pushToast({ kind: 'chapter', id })
     }
   }, [state.chapters, state.chronicleSeen, pushToast])
 
@@ -115,12 +110,7 @@ export function useGame() {
     const gain = picked.kind === 'instant' ? omenPayout(stateRef.current, picked) : 0
     dispatch({ type: 'CLAIM_OMEN', omenId: picked.id, now: Date.now() })
     setOmen(null)
-    pushToast({
-      label: 'Omen',
-      icon: picked.icon,
-      title: picked.name,
-      desc: gain > 0 ? `${picked.text} +${formatNumber(gain)} denarii.` : picked.text,
-    })
+    pushToast({ kind: 'omen', id: picked.id, gain })
   }, [pushToast])
 
   const actions = useMemo(
