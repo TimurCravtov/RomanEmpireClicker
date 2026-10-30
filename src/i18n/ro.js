@@ -90,8 +90,6 @@ export default {
       off: 'Oprită',
       volume: 'Volum',
       close: 'Închide',
-      musicOn: 'Pornește muzica',
-      musicOff: 'Oprește muzica',
       musicNote: 'O partitură originală pentru aulos, cornu, liră și tobe, compusă din nou în timp ce joci.',
     },
     year: { bc: '{n} î.Hr.', ad: '{n} d.Hr.' },

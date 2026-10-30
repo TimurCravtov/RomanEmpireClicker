@@ -91,8 +91,6 @@ export default {
       off: 'Off',
       volume: 'Volume',
       close: 'Close',
-      musicOn: 'Turn music on',
-      musicOff: 'Turn music off',
       musicNote: 'An original score for lyre and drum, composed afresh as you play.',
     },
     year: { bc: '{n} BC', ad: 'AD {n}' },

@@ -116,20 +116,11 @@ function SettingsDialog({ onClose }) {
 
 export default function SettingsButtons() {
   const { t } = useI18n()
-  const { settings, update } = useSettings()
   const [open, setOpen] = useState(false)
 
   return (
     <>
       <div className="hud-buttons">
-        <button
-          className="hud-button"
-          onClick={() => update({ music: !settings.music })}
-          aria-label={settings.music ? t('settings.musicOff') : t('settings.musicOn')}
-          title={settings.music ? t('settings.musicOff') : t('settings.musicOn')}
-        >
-          <SpeakerIcon muted={!settings.music} />
-        </button>
         <button className="hud-button" onClick={() => setOpen(true)} aria-label={t('settings.open')} title={t('settings.open')}>
           <GearIcon />
         </button>

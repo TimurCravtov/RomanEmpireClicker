@@ -90,8 +90,6 @@ export default {
       off: 'Tacet',
       volume: 'Vis soni',
       close: 'Claude',
-      musicOn: 'Musicam excita',
-      musicOff: 'Musicam sile',
       musicNote: 'Carmen novum tibiae, cornus, lyrae et tympani, dum ludis compositum.',
     },
     // Romans counted years from the founding of the city
