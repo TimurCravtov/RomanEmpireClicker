@@ -6,6 +6,7 @@ import CityView from './components/CityView.jsx'
 import ClickArea from './components/ClickArea.jsx'
 import Header from './components/Header.jsx'
 import Omen from './components/Omen.jsx'
+import SettingsButtons from './components/Settings.jsx'
 import Shop from './components/Shop.jsx'
 import StoryModal from './components/StoryModal.jsx'
 import Toasts from './components/Toasts.jsx'
@@ -29,6 +30,7 @@ export default function App() {
         <div className="hud__top">
           <Header lifetime={state.lifetime} ascensions={state.ascensions} />
           <ActaDiurna state={state} />
+          <SettingsButtons />
         </div>
 
         <aside className="hud__column hud__column--left">

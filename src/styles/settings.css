@@ -1,0 +1,151 @@
+.hud-buttons {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  gap: 6px;
+  pointer-events: auto;
+  z-index: 3;
+}
+
+/* keep the centered title clear of the buttons */
+.hud__top .header {
+  padding-inline: 88px;
+}
+
+.hud-button {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  color: var(--gold-300);
+  background: rgba(24, 6, 10, 0.75);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  backdrop-filter: blur(6px);
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+
+.hud-button:hover,
+.hud-button:focus-visible {
+  background: rgba(60, 14, 22, 0.9);
+  border-color: var(--gold-400);
+  outline: none;
+}
+
+.hud-button:active {
+  transform: scale(0.94);
+}
+
+/* --- dialog ---------------------------------------------------------------- */
+
+.settings {
+  width: min(420px, 100%);
+  max-width: none;
+  text-align: left;
+}
+
+.settings h2 {
+  text-align: center;
+}
+
+.settings__group {
+  margin: 16px 0 0;
+  padding: 0;
+  border: none;
+}
+
+.settings__group legend {
+  padding: 0;
+  margin-bottom: 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--marble-dim);
+}
+
+.settings__langs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.settings__langs button,
+.settings__toggle {
+  padding: 9px 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.settings__langs button:hover,
+.settings__toggle:hover {
+  border-color: var(--gold-400);
+}
+
+.settings__langs button[aria-pressed='true'],
+.settings__toggle[aria-pressed='true'] {
+  background: var(--gold-600);
+  border-color: var(--gold-400);
+  color: var(--crimson-900);
+}
+
+.settings__music {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.settings__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 96px;
+  justify-content: center;
+}
+
+.settings__volume {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--marble-dim);
+}
+
+.settings__volume input {
+  width: 100%;
+  accent-color: var(--gold-400);
+}
+
+.settings__volume input:disabled {
+  opacity: 0.4;
+}
+
+.settings__note {
+  margin: 8px 0 0;
+  font-size: 0.78rem;
+  font-style: italic;
+}
+
+.settings .btn {
+  display: block;
+  margin: 18px auto 0;
+}
+
+@media (max-width: 899px) {
+  /* the title rides on the city; tuck the buttons into the city's lower corner */
+  .hud-buttons {
+    top: calc(max(62vh, 360px) - 60px);
+  }
+
+  .hud__top .header {
+    padding-inline: 0;
+  }
+}

@@ -26,6 +26,7 @@
 }
 
 .hud__top {
+  position: relative; /* anchors the settings buttons */
   grid-column: 2;
   grid-row: 1;
   display: flex;
