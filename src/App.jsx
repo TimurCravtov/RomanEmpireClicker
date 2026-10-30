@@ -2,6 +2,7 @@ import Achievements from './components/Achievements.jsx'
 import ActaDiurna from './components/ActaDiurna.jsx'
 import Ascend from './components/Ascend.jsx'
 import Chronicle from './components/Chronicle.jsx'
+import CityView from './components/CityView.jsx'
 import ClickArea from './components/ClickArea.jsx'
 import Header from './components/Header.jsx'
 import Omen from './components/Omen.jsx'
@@ -21,6 +22,7 @@ export default function App() {
     <div className="app">
       <Header lifetime={state.lifetime} ascensions={state.ascensions} />
       <ActaDiurna state={state} />
+      <CityView owned={state.owned} chapters={state.chapters} />
       <main className="columns">
         <div className="column">
           <ClickArea
