@@ -1,4 +1,5 @@
 import Achievements from './components/Achievements.jsx'
+import Ascend from './components/Ascend.jsx'
 import ClickArea from './components/ClickArea.jsx'
 import Header from './components/Header.jsx'
 import Shop from './components/Shop.jsx'
@@ -22,6 +23,7 @@ export default function App() {
         </div>
         <div className="column">
           <Upgrades state={state} onBuy={actions.buyUpgrade} />
+          <Ascend state={state} onAscend={actions.ascend} />
         </div>
         <div className="column column--shop">
           <Shop denarii={state.denarii} owned={state.owned} perBuilding={stats.perBuilding} onBuy={actions.buyBuilding} />
