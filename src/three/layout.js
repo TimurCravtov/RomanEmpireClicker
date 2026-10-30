@@ -6,6 +6,13 @@ export const ISLAND_RADIUS = 16
 export const WALL_RADIUS = 7.6
 export const COLOSSEUM_POS = [3.2, 4.6]
 export const TRAJAN_POS = [-1.4, 3.9]
+// the she-wolf stands on the Palatine, the huts of Romulus around her
+export const WOLF_POS = [0, 0]
+export const ROMULUS_HUTS = [
+  [1.05, 0.75],
+  [-1.05, 0.55],
+  [0.85, -0.95],
+]
 
 // the seven hills, flattened to a few bumps: [x, z, radius, height]
 const HILLS = [
@@ -60,6 +67,8 @@ function generateSlots() {
   const taken = [
     { x: COLOSSEUM_POS[0], z: COLOSSEUM_POS[1], size: 2.2 },
     { x: TRAJAN_POS[0], z: TRAJAN_POS[1], size: 0.6 },
+    { x: WOLF_POS[0], z: WOLF_POS[1], size: 1.7 },
+    ...ROMULUS_HUTS.map(([x, z]) => ({ x, z, size: 0.5 })),
     ...aqueductPoints(14).map(([x, z]) => ({ x, z, size: 0.5 })),
   ]
   const slots = {}

@@ -316,3 +316,71 @@ export function Trireme() {
     </>
   )
 }
+
+// --- the Capitoline Wolf -------------------------------------------------------
+// The she-wolf of Rome's founding legend, head turned warily aside, with the
+// twins Romulus and Remus beneath her, on a marble pedestal at the city's heart.
+
+const wolfBronze = mat('#6e4d2c', { metalness: 0.35, roughness: 0.45 })
+const capsule = new THREE.CapsuleGeometry(1, 1, 3, 8)
+
+// a capsule of the given radius and straight length, laid along local y
+function Limb({ p, r = [0, 0, 0], radius, length, m = wolfBronze }) {
+  return <mesh geometry={capsule} material={m} position={p} rotation={r} scale={[radius, length / 2, radius]} castShadow />
+}
+
+function Twin({ p, turn = 0, reach = 0.6 }) {
+  return (
+    <group position={p} rotation={[0, turn, 0]}>
+      <Part g={G.sphere} m={wolfBronze} p={[0, 0.08, 0]} s={[0.065, 0.085, 0.06]} />
+      <Part g={G.sphere} m={wolfBronze} p={[0.02, 0.2, 0]} s={[0.048, 0.05, 0.046]} />
+      {/* an arm raised toward the wolf */}
+      <Limb p={[0.05, 0.17, 0.02]} r={[0, 0, -reach]} radius={0.016} length={0.09} />
+      <Limb p={[-0.02, 0.03, 0.05]} r={[Math.PI / 2, 0, 0.3]} radius={0.02} length={0.08} />
+    </group>
+  )
+}
+
+export function CapitolineWolf() {
+  return (
+    <>
+      {/* stepped marble pedestal */}
+      <Part m={M.marble} p={[0, 0.04, 0]} s={[1.3, 0.08, 0.8]} />
+      <Part m={M.marble} p={[0, 0.25, 0]} s={[1.1, 0.34, 0.6]} />
+      <Part m={M.marble} p={[0, 0.45, 0]} s={[1.2, 0.06, 0.7]} />
+
+      <group position={[0, 0.48, 0]}>
+        {/* legs */}
+        {[
+          [0.24, 0.08],
+          [0.24, -0.08],
+          [-0.22, 0.09],
+          [-0.22, -0.09],
+        ].map(([x, z], i) => (
+          <Limb key={i} p={[x, 0.22, z]} radius={0.04} length={0.36} />
+        ))}
+        {/* lean body and deep chest */}
+        <Limb p={[0, 0.5, 0]} r={[0, 0, Math.PI / 2]} radius={0.13} length={0.42} />
+        <Part g={G.sphere} m={wolfBronze} p={[0.22, 0.53, 0]} s={[0.16, 0.18, 0.14]} />
+        {/* neck reaching up and forward */}
+        <Limb p={[0.33, 0.66, 0.02]} r={[0, 0, -0.85]} radius={0.075} length={0.12} />
+        {/* the head, turned aside toward the onlooker */}
+        <group position={[0.43, 0.76, 0.05]} rotation={[0, -0.75, 0.1]}>
+          <Part g={G.sphere} m={wolfBronze} s={[0.11, 0.095, 0.09]} />
+          <mesh geometry={G.cone} material={wolfBronze} position={[0.08, -0.02, 0]} rotation={[0, 0, -Math.PI / 2]} scale={[0.1, 0.17, 0.1]} castShadow />
+          <mesh geometry={G.cone} material={wolfBronze} position={[-0.03, 0.07, 0.05]} rotation={[0.3, 0, 0.2]} scale={[0.06, 0.09, 0.06]} castShadow />
+          <mesh geometry={G.cone} material={wolfBronze} position={[-0.03, 0.07, -0.05]} rotation={[-0.3, 0, 0.2]} scale={[0.06, 0.09, 0.06]} castShadow />
+        </group>
+        {/* tail hanging behind */}
+        <Limb p={[-0.36, 0.38, 0]} r={[0, 0, -0.45]} radius={0.028} length={0.28} />
+        {/* the teats that fed the twins */}
+        {[-0.08, 0.02, 0.12].flatMap((x) =>
+          [0.06, -0.06].map((z) => <Part key={`${x}${z}`} g={G.sphere} m={wolfBronze} p={[x, 0.37, z]} s={[0.025, 0.025, 0.025]} />),
+        )}
+        {/* Romulus and Remus */}
+        <Twin p={[0.05, 0, 0.1]} turn={0.4} reach={0.7} />
+        <Twin p={[-0.13, 0, -0.06]} turn={-0.6} reach={0.4} />
+      </group>
+    </>
+  )
+}

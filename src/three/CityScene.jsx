@@ -3,8 +3,8 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { Aqueduct, Ballistae, Birds, Clouds, Colosseum, Land, ServianWall, TOWERS, TrajansColumn } from './landmarks.jsx'
-import { SLOTS, ZONES, riverX, shownCount, terrainHeight } from './layout.js'
-import { Castra, Century, Farm, Forum, G, House, M, Market, Senate, Spawn, Temple, Trireme } from './models.jsx'
+import { ROMULUS_HUTS, SLOTS, WOLF_POS, ZONES, riverX, shownCount, terrainHeight } from './layout.js'
+import { CapitolineWolf, Castra, Century, Farm, Forum, G, House, M, Market, Senate, Spawn, Temple, Trireme } from './models.jsx'
 
 const prefersReducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 const coarsePointer = () => window.matchMedia?.('(pointer: coarse)').matches
@@ -159,11 +159,7 @@ function CameraRig({ frame }) {
 
 // the huts of Romulus on the Palatine, there from the very first click
 function RomulusHuts() {
-  return [
-    [0.2, 0.3],
-    [-0.5, -0.2],
-    [0.6, -0.5],
-  ].map(([x, z], i) => (
+  return ROMULUS_HUTS.map(([x, z], i) => (
     <group key={i} position={[x, terrainHeight(x, z), z]}>
       <mesh geometry={G.column} material={M.wood} position={[0, 0.1, 0]} scale={[0.16, 0.2, 0.16]} castShadow />
       <mesh geometry={G.cone} material={M.hay} position={[0, 0.2, 0]} scale={[0.42, 0.26, 0.42]} castShadow />
@@ -204,6 +200,11 @@ function City({ owned, chapters }) {
   return (
     <>
       <RomulusHuts />
+      <Spawn position={[WOLF_POS[0], terrainHeight(...WOLF_POS), WOLF_POS[1]]} rotation={0.5}>
+        <group scale={1.3}>
+          <CapitolineWolf />
+        </group>
+      </Spawn>
       <Placed type="farm" count={n('farm')}>
         {(s) => <Farm seed={s.seed} />}
       </Placed>
