@@ -29,7 +29,9 @@ body {
   margin: 0;
   color: var(--marble);
   font-family: var(--font-body);
-  background: radial-gradient(ellipse at 50% 0%, var(--crimson-600), var(--crimson-800) 45%, var(--crimson-900)) fixed;
+  background-color: var(--crimson-900);
+  background-image: radial-gradient(ellipse at 50% 0%, var(--crimson-600), var(--crimson-800) 45%, var(--crimson-900));
+  background-attachment: fixed;
   -webkit-tap-highlight-color: transparent;
 }
 

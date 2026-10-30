@@ -24,7 +24,7 @@ export default function Ascend({ state, onAscend }) {
       <p className="muted">
         {canAscend
           ? `Ascend now to earn ${formatNumber(gain)} Glory.`
-          : 'Earn about 100 million denarii in a single reign to claim your first Glory.'}
+          : 'Earn about 100 million denarii in a single reign to claim Glory.'}
       </p>
       <button className="btn" disabled={!canAscend} onClick={handleAscend}>
         Ascend to the Purple
