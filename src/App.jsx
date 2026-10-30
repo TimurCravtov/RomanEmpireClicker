@@ -29,6 +29,16 @@ export default function App() {
           <Shop denarii={state.denarii} owned={state.owned} perBuilding={stats.perBuilding} onBuy={actions.buyBuilding} />
         </div>
       </main>
+      <footer className="footer muted">
+        Icons by Lorc, Delapouite &amp; Skoll from <a href="https://game-icons.net">game-icons.net</a> (CC BY 3.0).
+        <button
+          onClick={() => {
+            if (window.confirm('Erase all progress, including Glory and achievements?')) actions.reset()
+          }}
+        >
+          Reset game
+        </button>
+      </footer>
       <Toasts toasts={toasts} onDismiss={dismissToast} />
       {welcomeBack && <WelcomeBack {...welcomeBack} onClose={dismissWelcome} />}
     </div>
