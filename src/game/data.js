@@ -17,6 +17,9 @@ import crown from '../assets/icons/imperial-crown.png'
 import scroll from '../assets/icons/scroll-quill.png'
 import laurelCrown from '../assets/icons/laurel-crown.png'
 import farmer from '../assets/icons/farmer.png'
+import dice from '../assets/icons/dice.png'
+import castleRuins from '../assets/icons/castle-ruins.png'
+import { CHAPTERS } from './story.js'
 
 export const ICONS = {
   eagle,
@@ -120,4 +123,15 @@ export const ACHIEVEMENTS = [
   },
   { id: 'upgrades-10', name: 'Reformer', desc: 'Buy 10 upgrades.', icon: scroll, test: (s) => s.upgrades.length >= 10 },
   { id: 'glory-1', name: 'Ad Gloriam', desc: 'Ascend for the first time.', icon: laurelsTrophy, test: (s) => s.ascensions >= 1 },
+  { id: 'omen-1', name: 'Favored by Fortuna', desc: 'Catch an omen.', icon: laurelCrown, test: (s) => s.omensClaimed >= 1 },
+  { id: 'omen-25', name: 'Augur', desc: 'Catch 25 omens.', icon: eagle, test: (s) => s.omensClaimed >= 25 },
+  { id: 'rubicon', name: 'Alea Iacta Est', desc: 'Cross the Rubicon.', icon: dice, test: (s) => s.choices.rubicon === 'cross' },
+  { id: 'fall', name: 'Sic Transit Gloria Mundi', desc: 'Live to see the fall of the West.', icon: castleRuins, test: (s) => s.chapters.includes('fall') },
+  {
+    id: 'historian',
+    name: 'Heir to Livy',
+    desc: 'Read every chapter of the chronicle.',
+    icon: scroll,
+    test: (s) => s.chronicleSeen.length >= CHAPTERS.length,
+  },
 ]
