@@ -17,7 +17,7 @@ export default function Shop({ denarii, owned, perBuilding, onBuy }) {
   const visible = BUILDINGS.slice(0, Math.min(lastRevealed + 2, BUILDINGS.length))
 
   return (
-    <section className="panel">
+    <section className="panel shop">
       <h2 className="panel__title">Imperial Works</h2>
       <div className="qty" role="group" aria-label="Purchase quantity">
         {QUANTITIES.map((q) => (

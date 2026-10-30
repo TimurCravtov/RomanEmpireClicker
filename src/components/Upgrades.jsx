@@ -7,7 +7,7 @@ export default function Upgrades({ state, onBuy }) {
   const available = UPGRADES.filter((u) => isUpgradeVisible(state, u)).sort((a, b) => a.cost - b.cost)
 
   return (
-    <section className="panel">
+    <section className="panel edicts">
       <h2 className="panel__title">
         Edicts <small>{state.upgrades.length} enacted</small>
       </h2>

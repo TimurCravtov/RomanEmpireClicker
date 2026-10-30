@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { Aqueduct, Ballistae, Birds, Clouds, Colosseum, Land, ServianWall, TOWERS, TrajansColumn } from './landmarks.jsx'
 import { SLOTS, ZONES, riverX, shownCount, terrainHeight } from './layout.js'
@@ -8,24 +9,48 @@ import { Castra, Century, Farm, Forum, G, House, M, Market, Senate, Spawn, Templ
 const prefersReducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 const coarsePointer = () => window.matchMedia?.('(pointer: coarse)').matches
 
-function CameraRig() {
-  const { camera, gl, size } = useThree()
+// how much of the island must fit on screen, in world units: nearly the full
+// width (it may tuck slightly under the panels) and its top plus some underside
+const FIT_HALF_WIDTH = 14.5
+const FIT_HALF_HEIGHT = 9.5
+
+function CameraRig({ frame }) {
+  const { camera, gl, scene, size } = useThree()
   const controls = useMemo(() => new OrbitControls(camera, gl.domElement), [camera, gl])
 
-  // pull back on narrow screens so the whole island fits
+  // Frame Rome in the open space between the HUD panels: shift the projection
+  // so the island is centered there, and pick the distance that fills it.
   useEffect(() => {
-    const aspect = size.width / size.height
-    const distance = aspect < 1.6 ? 40 : aspect > 3 ? 31 : 34
+    const freeWidth = Math.max(size.width - frame.left - frame.right, size.width * 0.4)
+    const freeHeight = Math.max(size.height - frame.top, size.height * 0.6)
+    const tanHalfFov = Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)
+    const pxPerUnitAt1 = size.height / (2 * tanHalfFov) // screen px per world unit at distance 1
+    const distance = Math.max(
+      (FIT_HALF_WIDTH * pxPerUnitAt1) / (freeWidth / 2),
+      (FIT_HALF_HEIGHT * pxPerUnitAt1) / (freeHeight / 2),
+    )
+
+    camera.setViewOffset(size.width, size.height, (frame.right - frame.left) / 2, -frame.top / 2, size.width, size.height)
     const dir = camera.position.clone().sub(controls.target).normalize()
     camera.position.copy(controls.target).addScaledVector(dir, distance)
-  }, [size.width, size.height, camera, controls])
+    camera.far = distance * 3
+    camera.updateProjectionMatrix()
+
+    controls.minDistance = distance * 0.45
+    controls.maxDistance = distance * 1.3
+    // the desktop HUD doesn't scroll, so the wheel is free to zoom the city
+    controls.enableZoom = frame.left > 0
+    if (scene.fog) {
+      scene.fog.near = distance * 1.1
+      scene.fog.far = distance * 2.4
+    }
+  }, [size.width, size.height, frame, camera, controls, scene])
 
   useEffect(() => {
     const reduced = prefersReducedMotion()
     controls.target.set(0, 0.4, 0)
     controls.enableDamping = true
     controls.enablePan = false
-    controls.enableZoom = false // don't hijack page scrolling
     controls.minPolarAngle = 0.55
     controls.maxPolarAngle = 1.25
     controls.autoRotate = !reduced
@@ -140,12 +165,14 @@ function City({ owned, chapters }) {
   )
 }
 
-export default function CityScene({ owned, chapters }) {
+const NO_FRAME = { left: 0, right: 0, top: 0 }
+
+export default function CityScene({ owned, chapters, frame = NO_FRAME }) {
   return (
     <Canvas
       shadows="percentage"
       dpr={[1, 1.75]}
-      camera={{ position: [16, 11, 16], fov: 34, near: 0.5, far: 120 }}
+      camera={{ position: [15, 13.5, 15], fov: 34, near: 0.5, far: 150 }}
       gl={{ antialias: true, alpha: true }}
     >
       <fog attach="fog" args={['#e9b98a', 30, 70]} />
@@ -162,7 +189,7 @@ export default function CityScene({ owned, chapters }) {
         shadow-camera-bottom={-18}
         shadow-bias={-0.0005}
       />
-      <CameraRig />
+      <CameraRig frame={frame} />
       <Land />
       <City owned={owned} chapters={chapters} />
       <Birds />

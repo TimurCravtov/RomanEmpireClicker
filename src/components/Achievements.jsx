@@ -3,7 +3,7 @@ import '../styles/achievements.css'
 
 export default function Achievements({ unlocked }) {
   return (
-    <section className="panel">
+    <section className="panel triumphs">
       <h2 className="panel__title">
         Triumphs{' '}
         <small>

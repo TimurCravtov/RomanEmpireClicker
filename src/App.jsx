@@ -20,11 +20,16 @@ export default function App() {
 
   return (
     <div className="app">
-      <Header lifetime={state.lifetime} ascensions={state.ascensions} />
-      <ActaDiurna state={state} />
+      {/* the world: Rome fills the screen, the interface floats above it */}
       <CityView owned={state.owned} chapters={state.chapters} />
-      <main className="columns">
-        <div className="column">
+
+      <div className="hud">
+        <div className="hud__top">
+          <Header lifetime={state.lifetime} ascensions={state.ascensions} />
+          <ActaDiurna state={state} />
+        </div>
+
+        <aside className="hud__column hud__column--left">
           <ClickArea
             denarii={state.denarii}
             perClick={stats.perClick}
@@ -33,27 +38,27 @@ export default function App() {
             buffs={state.buffs}
             onClick={actions.click}
           />
-          <Achievements unlocked={state.achievements} />
-        </div>
-        <div className="column">
           <Chronicle state={state} onRead={actions.readChapter} />
-          <Upgrades state={state} onBuy={actions.buyUpgrade} />
           <Ascend state={state} onAscend={actions.ascend} />
-        </div>
-        <div className="column column--shop">
+          <Achievements unlocked={state.achievements} />
+        </aside>
+
+        <aside className="hud__column hud__column--right">
           <Shop denarii={state.denarii} owned={state.owned} perBuilding={stats.perBuilding} onBuy={actions.buyBuilding} />
-        </div>
-      </main>
-      <footer className="footer muted">
-        Icons by Lorc, Delapouite &amp; Skoll from <a href="https://game-icons.net">game-icons.net</a> (CC BY 3.0).
-        <button
-          onClick={() => {
-            if (window.confirm('Erase all progress, including Glory and achievements?')) actions.reset()
-          }}
-        >
-          Reset game
-        </button>
-      </footer>
+          <Upgrades state={state} onBuy={actions.buyUpgrade} />
+          <footer className="footer muted">
+            Icons by Lorc, Delapouite &amp; Skoll from <a href="https://game-icons.net">game-icons.net</a> (CC BY 3.0).
+            <button
+              onClick={() => {
+                if (window.confirm('Erase all progress, including Glory and achievements?')) actions.reset()
+              }}
+            >
+              Reset game
+            </button>
+          </footer>
+        </aside>
+      </div>
+
       <Omen omen={omen} onClaim={claimOmen} />
       <Toasts toasts={toasts} onDismiss={dismissToast} />
       {story && (
