@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
+import { sfx } from '../audio/sfx.js'
 import { applyOffline, computeStats, createInitialState, omenPayout, pendingChapter, reducer } from '../game/engine.js'
 import { OMEN_BASE_INTERVAL_S, OMEN_LIFETIME_S, pickOmen } from '../game/omens.js'
 import { clearSave, loadGame, saveGame } from '../game/save.js'
@@ -110,6 +111,7 @@ export function useGame() {
     const gain = picked.kind === 'instant' ? omenPayout(stateRef.current, picked) : 0
     dispatch({ type: 'CLAIM_OMEN', omenId: picked.id, now: Date.now() })
     setOmen(null)
+    sfx.omen()
     pushToast({ kind: 'omen', id: picked.id, gain })
   }, [pushToast])
 

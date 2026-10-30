@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import { sfx } from '../audio/sfx.js'
 import { chapterEffects } from '../game/story.js'
 import { useI18n } from '../i18n/index.jsx'
 import '../styles/story.css'
@@ -21,6 +22,14 @@ export default function StoryModal({ chapter: source, mode, chosen, onChoose, on
   const chapter = i18n.chapter(source)
   const awaitingChoice = Boolean(chapter.choices) && !chosen
   const canClose = !awaitingChoice
+
+  // the rustle of parchment as the chapter unrolls (once, even under StrictMode)
+  const rustled = useRef(false)
+  useEffect(() => {
+    if (rustled.current) return
+    rustled.current = true
+    sfx.paper()
+  }, [])
 
   useEffect(() => {
     if (!canClose) return

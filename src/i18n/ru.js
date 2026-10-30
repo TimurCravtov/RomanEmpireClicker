@@ -82,6 +82,8 @@ export default {
     settings: {
       title: 'Настройки',
       open: 'Настройки',
+      sound: 'Звук',
+      effects: 'Звуковые эффекты',
       language: 'Язык',
       music: 'Музыка',
       on: 'Вкл',

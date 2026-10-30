@@ -1,3 +1,4 @@
+import { sfx } from '../audio/sfx.js'
 import { UPGRADES } from '../game/data.js'
 import { isUpgradeVisible } from '../game/engine.js'
 import { formatNumber } from '../game/format.js'
@@ -22,7 +23,14 @@ export default function Upgrades({ state, onBuy }) {
             const { name, desc } = i18n.upgrade(u)
             return (
               <li key={u.id}>
-                <button className="item" disabled={u.cost > state.denarii} onClick={() => onBuy(u.id)}>
+                <button
+                  className="item"
+                  disabled={u.cost > state.denarii}
+                  onClick={() => {
+                    sfx.edict()
+                    onBuy(u.id)
+                  }}
+                >
                   <img src={u.icon} alt="" />
                   <div>
                     <div className="item__name">{name}</div>

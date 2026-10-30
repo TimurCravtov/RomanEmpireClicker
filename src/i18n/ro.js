@@ -82,6 +82,8 @@ export default {
     settings: {
       title: 'Setări',
       open: 'Setări',
+      sound: 'Sunet',
+      effects: 'Efecte sonore',
       language: 'Limba',
       music: 'Muzică',
       on: 'Pornită',

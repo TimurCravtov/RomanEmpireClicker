@@ -1,4 +1,5 @@
 import { lazy, useRef, useState } from 'react'
+import { sfx } from '../audio/sfx.js'
 import { ICONS } from '../game/data.js'
 import { formatNumber } from '../game/format.js'
 import { OMENS_BY_ID } from '../game/omens.js'
@@ -19,6 +20,7 @@ export default function ClickArea({ denarii, perClick, perSecond, clicks, buffs,
 
   function handleClick(e) {
     onClick()
+    sfx.coin()
 
     const rect = areaRef.current.getBoundingClientRect()
     // keyboard activation reports 0,0 — spawn from the button's center instead

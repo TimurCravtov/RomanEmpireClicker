@@ -11,7 +11,7 @@ function detectLanguage() {
 }
 
 function load() {
-  const defaults = { lang: detectLanguage(), music: true, volume: 0.5 }
+  const defaults = { lang: detectLanguage(), music: true, sfx: true, volume: 0.5 }
   try {
     const saved = JSON.parse(localStorage.getItem(KEY))
     return saved ? { ...defaults, ...saved } : defaults

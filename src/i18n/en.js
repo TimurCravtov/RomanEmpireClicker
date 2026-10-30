@@ -83,6 +83,8 @@ export default {
     settings: {
       title: 'Settings',
       open: 'Settings',
+      sound: 'Sound',
+      effects: 'Sound effects',
       language: 'Language',
       music: 'Music',
       on: 'On',

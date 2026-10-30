@@ -96,10 +96,16 @@
   color: var(--crimson-900);
 }
 
-.settings__music {
+.settings__row {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 14px;
+  margin-bottom: 8px;
+}
+
+.settings__row > span {
+  font-weight: 600;
 }
 
 .settings__toggle {
@@ -111,7 +117,7 @@
 }
 
 .settings__volume {
-  flex: 1;
+  margin-top: 4px;
   display: flex;
   flex-direction: column;
   gap: 4px;

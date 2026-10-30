@@ -13,7 +13,7 @@ import Toasts from './components/Toasts.jsx'
 import Upgrades from './components/Upgrades.jsx'
 import WelcomeBack from './components/WelcomeBack.jsx'
 import { useGame } from './hooks/useGame.js'
-import { useMusic } from './hooks/useMusic.js'
+import { useAudio } from './hooks/useAudio.js'
 import { useI18n } from './i18n/index.jsx'
 import './styles/base.css'
 import './styles/layout.css'
@@ -21,7 +21,7 @@ import './styles/layout.css'
 export default function App() {
   const { state, stats, actions, toasts, dismissToast, welcomeBack, omen, claimOmen, story } = useGame()
   const { t } = useI18n()
-  useMusic()
+  useAudio()
 
   return (
     <div className="app">

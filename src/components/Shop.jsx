@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { sfx } from '../audio/sfx.js'
 import { BUILDINGS } from '../game/data.js'
 import { buildingCost, maxAffordable } from '../game/engine.js'
 import { formatNumber } from '../game/format.js'
@@ -42,7 +43,10 @@ export default function Shop({ denarii, owned, perBuilding, onBuy }) {
               <button
                 className={`item${hidden ? ' item--locked' : ''}`}
                 disabled={hidden || cost > denarii}
-                onClick={() => onBuy(b.id, qty)}
+                onClick={() => {
+                  sfx.build()
+                  onBuy(b.id, qty)
+                }}
                 title={hidden ? undefined : blurb}
               >
                 <img src={b.icon} alt="" />

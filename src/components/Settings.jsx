@@ -73,29 +73,36 @@ function SettingsDialog({ onClose }) {
         </fieldset>
 
         <fieldset className="settings__group">
-          <legend>{t('settings.music')}</legend>
-          <div className="settings__music">
-            <button
-              className="settings__toggle"
-              aria-pressed={settings.music}
-              onClick={() => update({ music: !settings.music })}
-            >
-              <SpeakerIcon muted={!settings.music} />
-              {settings.music ? t('settings.on') : t('settings.off')}
-            </button>
-            <label className="settings__volume">
-              <span>{t('settings.volume')}</span>
-              <input
-                type="range"
-                min="0"
-                max="1"
-                step="0.05"
-                value={settings.volume}
-                disabled={!settings.music}
-                onChange={(e) => update({ volume: Number(e.target.value) })}
-              />
-            </label>
-          </div>
+          <legend>{t('settings.sound')}</legend>
+          {[
+            ['music', t('settings.music')],
+            ['sfx', t('settings.effects')],
+          ].map(([key, label]) => (
+            <div key={key} className="settings__row">
+              <span>{label}</span>
+              <button
+                className="settings__toggle"
+                aria-pressed={settings[key]}
+                aria-label={label}
+                onClick={() => update({ [key]: !settings[key] })}
+              >
+                <SpeakerIcon muted={!settings[key]} />
+                {settings[key] ? t('settings.on') : t('settings.off')}
+              </button>
+            </div>
+          ))}
+          <label className="settings__volume">
+            <span>{t('settings.volume')}</span>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.05"
+              value={settings.volume}
+              disabled={!settings.music && !settings.sfx}
+              onChange={(e) => update({ volume: Number(e.target.value) })}
+            />
+          </label>
           <p className="settings__note muted">{t('settings.musicNote')}</p>
         </fieldset>
 
