@@ -1,2 +1,396 @@
-// filled in by the ro translation commit
-export default { ui: {} }
+export default {
+  ui: {
+    meta: { title: 'Imperium Clicker · Construiește Imperiul Roman în 3D, dinar cu dinar' },
+    header: { sub: 'SPQR · {rank} · Dinastia: {dynasty}' },
+    treasury: {
+      label: 'Dinari în tezaur',
+      perSecond: '{n} pe secundă',
+      perClick: '+{n} pe lovitură',
+      aria: 'Lovește dinarul ca să aduni {n} dinari',
+    },
+    buff: { click: 'lovituri', production: 'producție', line: '{name}: {target} ×{mult} · {s}s' },
+    shop: {
+      title: 'Lucrări imperiale',
+      qtyAria: 'Cantitate de cumpărat',
+      max: 'Max',
+      unknown: '???',
+      undiscovered: 'Încă nedescoperit',
+      rate: '{n} dinari/s',
+      each: '+{n} dinari/s fiecare',
+      bulk: '{n} pentru {cost}',
+    },
+    edicts: {
+      title: 'Edicte',
+      enacted: 'Emise: {n}',
+      none: 'Niciun edict disponibil. Construiește mai mult ca să le deblochezi.',
+      more: '+{n} edicte în așteptare…',
+    },
+    upgrade: {
+      clickDesc: 'Loviturile sunt de două ori mai eficiente.',
+      buildingDesc: '{building}: producția se dublează.',
+      globalDesc: 'Toată producția {pct}.',
+    },
+    triumphs: { title: 'Triumfuri' },
+    gloria: {
+      title: 'Glorie',
+      ascensions: 'Înălțări: {n}',
+      glory: 'Glorie:',
+      bonus: '(+{p}% producție și lovituri)',
+      ready: 'Înalță-te acum ca să câștigi {n} glorie.',
+      notReady: 'Câștigă în jur de 100 de milioane de dinari într-o singură domnie ca să revendici glorie.',
+      button: 'Îmbracă purpura',
+      confirm:
+        'Te înalți și întemeiezi o nouă dinastie?\n\nDinarii, clădirile și edictele se resetează. Primești {g} glorie (+{p}% producție).',
+    },
+    chronicle: {
+      title: 'Cronica',
+      count: 'Capitole: {a} / {b}',
+      chapter: 'Capitolul {n}',
+      next: 'Urmează: capitolul {n}',
+      progressAria: 'Progres spre capitolul următor',
+      complete: 'Cronica este completă. Înalță-te și lasă Roma să renască.',
+      unwritten: 'Încă nescris',
+      boons: 'Darurile acestei domnii ({n})',
+      chaptersAria: 'Capitole',
+    },
+    story: {
+      decision: 'Decizia ta:',
+      history: 'Ce consemnează istoria',
+      boon: 'Darul acestei domnii',
+      awaits: 'Această decizie te așteaptă în domnia actuală.',
+      continue: 'Continuă',
+      close: 'Închide',
+    },
+    toast: { triumph: 'Triumf', omen: 'Semn', gain: '+{n} dinari.' },
+    welcome: {
+      title: 'Ave, Imperator!',
+      body: 'Provinciile tale au trudit {time} în lipsa ta și au adus {n} dinari.',
+      collect: 'Adună',
+    },
+    city: {
+      name: 'Roma',
+      meta: '{year} · {n} suflete',
+      hint: 'Trage ca să privești în jur · rotița pentru zoom',
+      aria: 'Roma ta, în 3D',
+    },
+    omen: { aria: 'Un semn de la Fortuna! Apasă ca să-l prinzi.' },
+    footer: {
+      credits: 'Pictograme de Lorc, Delapouite și Skoll de pe',
+      reset: 'Joc nou',
+      resetConfirm: 'Ștergi tot progresul, inclusiv gloria și triumfurile?',
+    },
+    settings: {
+      title: 'Setări',
+      open: 'Setări',
+      language: 'Limba',
+      music: 'Muzică',
+      on: 'Pornită',
+      off: 'Oprită',
+      volume: 'Volum',
+      close: 'Închide',
+      musicOn: 'Pornește muzica',
+      musicOff: 'Oprește muzica',
+      musicNote: 'O partitură originală pentru aulos, cornu, liră și tobe, compusă din nou în timp ce joci.',
+    },
+    year: { bc: '{n} î.Hr.', ad: '{n} d.Hr.' },
+    duration: { h: 'h', m: 'm', s: 's' },
+    effect: {
+      building: '{building}: producție ×{mult}',
+      global: 'Toată producția {pct}',
+      click: 'Dinari pe lovitură ×{mult}',
+      omenRate: 'Semnele apar de două ori mai des',
+    },
+  },
+
+  buildings: {
+    farm: { name: 'Fermă', blurb: 'Grâul hrănește legiunile și umple tezaurul.' },
+    colonus: { name: 'Colon arendaș', blurb: 'Arendașii își plătesc chiria în dinari.' },
+    amphora: { name: 'Negustor de amfore', blurb: 'Vin și ulei de măsline din fiecare colț al Mării Noastre.' },
+    aqueduct: { name: 'Apeduct', blurb: 'Apă proaspătă și o taxă de la fiecare oraș la care ajunge.' },
+    century: { name: 'Centurie de legionari', blurb: 'Optzeci de oameni în spatele scuturilor; prada urmează.' },
+    barracks: { name: 'Cazarmă', blurb: 'O tabără la fiecare graniță, o taxă pe fiecare drum.' },
+    trireme: { name: 'Flotă de trireme', blurb: 'Marea Noastră aparține Romei. Și taxele vamale.' },
+    ballista: { name: 'Baterie de baliste', blurb: 'Negocieri cu săgeata. Tributul sosește repede.' },
+    temple: { name: 'Templul lui Jupiter', blurb: 'Zeii aprobă zeciuiala.' },
+    forum: { name: 'Forumul Roman', blurb: 'Inima comerțului din lumea cunoscută.' },
+    senate: { name: 'Senatul', blurb: 'Senatul și Poporul Roman. Mai ales impozite.' },
+  },
+
+  upgrades: {
+    gladius: 'Gladius ascuțit',
+    helmet: 'Ordinul centurionului',
+    laurels: 'Laurii victoriei',
+    scroll: 'Edictul împăratului',
+    'pax-romana': 'Pax Romana',
+    'cursus-publicus': 'Poșta imperială',
+    'imperial-cult': 'Cultul imperial',
+  },
+
+  achievements: {
+    'first-click': { name: 'Ave, Caesar!', desc: 'Lovește dinarul o dată.' },
+    'clicks-100': { name: 'Perceptor neobosit', desc: 'Lovește de 100 de ori.' },
+    'clicks-1000': { name: 'Mâna împăratului', desc: 'Lovește de 1.000 de ori.' },
+    'earn-1k': { name: 'O vilă modestă', desc: 'Câștigă 1.000 de dinari.' },
+    'earn-1m': { name: 'Avere de cavaler', desc: 'Câștigă 1 milion de dinari.' },
+    'earn-1b': { name: 'Mai bogat decât Crassus', desc: 'Câștigă 1 miliard de dinari.' },
+    'earn-1t': { name: 'Stăpânul Mediteranei', desc: 'Câștigă 1 trilion de dinari.' },
+    'farms-10': { name: 'Grânarul Romei', desc: 'Deține 10 ferme.' },
+    'aqueduct-1': { name: 'Apă pentru popor', desc: 'Construiește un apeduct.' },
+    'century-10': { name: 'Linia roșie', desc: 'Ridică 10 centurii de legionari.' },
+    'temple-1': { name: 'Pontifex Maximus', desc: 'Închină un templu lui Jupiter.' },
+    'senate-1': { name: 'Cvorum întrunit', desc: 'Convoacă Senatul.' },
+    'buildings-100': { name: 'Urbs Aeterna', desc: 'Deține 100 de clădiri.' },
+    'upgrades-10': { name: 'Reformator', desc: 'Emite 10 edicte.' },
+    'glory-1': { name: 'Ad Gloriam', desc: 'Înalță-te pentru prima dată.' },
+    'omen-1': { name: 'Favoritul Fortunei', desc: 'Prinde un semn.' },
+    'omen-25': { name: 'Augur', desc: 'Prinde 25 de semne.' },
+    rubicon: { name: 'Alea Iacta Est', desc: 'Trece Rubiconul.' },
+    fall: { name: 'Sic Transit Gloria Mundi', desc: 'Trăiește să vezi căderea Apusului.' },
+    historian: { name: 'Moștenitorul lui Titus Livius', desc: 'Citește toate capitolele cronicii.' },
+  },
+
+  ranks: ['Plebeu', 'Legionar', 'Centurion', 'Tribun', 'Senator', 'Consul', 'Caesar', 'Imperator Augustus'],
+
+  dynasties: [
+    'Casa lui Romulus',
+    'Iulio-Claudiană',
+    'Flaviană',
+    'Antonină',
+    'Severă',
+    'Constantiniană',
+    'Valentiniană',
+    'Teodosiană',
+    'Iustiniană',
+    'Heracliană',
+    'Macedoneană',
+    'Comnenă',
+    'Paleologă',
+  ],
+
+  omens: {
+    triumph: {
+      name: 'Un triumf!',
+      text: 'Un general victorios străbate Via Sacra într-o cvadrigă, iar prada de război este purtată înaintea lui.',
+    },
+    circuses: { name: 'Pâine și circ', text: 'Curse în Circus Maximus! Mulțimea urlă și banii curg. Producție ×5.' },
+    saturnalia: { name: 'Io Saturnalia!', text: 'Stăpânii își servesc sclavii și lumea se întoarce pe dos. Lovituri ×10.' },
+    auspices: {
+      name: 'Auspicii favorabile',
+      text: 'Augurii văd păsări zburând pe stânga, semn că zeii sunt de acord. Producție ×2.',
+    },
+  },
+
+  headlines: {
+    garum: 'Prețul garumului a crescut din nou în Forum Boarium. Negustorii de sos de pește dau vina pe vreme.',
+    factions: 'Suporterii Verzilor și Albaștrilor sunt rugați să-și rezolve certurile în afara Circului.',
+    graffitiWall: 'Graffiti, Pompei: „Mă mir, zidule, că nu te-ai prăbușit sub atâtea mâzgălituri plictisitoare.”',
+    graffitiDiphilus: 'Graffiti, Pompei: „Gaius Pumidius Diphilus a fost aici.”',
+    graffitiNero: 'Graffiti, Pompei: „Degustătorul împăratului Nero zice: asta e otravă.”',
+    toga: 'Pierdută: o togă, văzută ultima oară la terme. Se oferă recompensă. Fără întrebări.',
+    philosopher: 'Un filozof a fost văzut certându-se cu sine însuși la terme. Din nou.',
+    augurs: 'Augurii raportează păsări favorabile deasupra Palatinului. Romulus e mulțumit.',
+    consuls: 'Consulii pentru anul viitor au fost aleși. Amândoi promit să-și opună veto unul altuia în mod responsabil.',
+    geese: 'Gâștele sacre ale Iunonei sunt cinstite cu o procesiune. Câinii de pază care n-au lătrat, mai puțin.',
+    appia: 'Călătorii spun că Via Appia ajunge acum până la Capua.',
+    rowers: 'Noii vâslași încă se antrenează pe bănci pe uscat. Localnicii se amuză.',
+    hannibalAdPortas: 'Mamele potolesc copiii neascultători cu trei cuvinte: „Hannibal ad portas!”',
+    cato: 'Cato își încheie discursul despre taxele pe uleiul de măsline: „În rest, cred că Cartagina trebuie distrusă.”',
+    recruiters: 'Recrutorii caută voluntari fără pământ. Echipamentul nu e inclus; picioarele sunt obligatorii.',
+    menander: 'Se spune că Caesar l-a citat pe dramaturgul grec Menandru la Rubicon. Senatorii nu sunt impresionați.',
+    calpurnia: 'Calpurnia, soția lui Caesar, are vise tulburătoare. Haruspicele Spurinna e de acord.',
+    janus: 'Porțile templului lui Ianus s-au închis. Lumea, măcar o dată, e în pace.',
+    grainFleet: 'Flota de grâne din Egipt a sosit la Ostia. Pâinea se ieftinește.',
+    titusGames: 'Titus anunță o sută de zile de jocuri. Se așteaptă mii de fiare.',
+    trajanMarket: 'S-a deschis Piața lui Traian: vreo 150 de prăvălii și birouri sub același acoperiș.',
+    emperorAcclaimed: 'Legiunile au aclamat încă un împărat. Monetăria e rugată să grăbească noile portrete.',
+    bosporus: 'Construcții în plin avânt pe Bosfor. Se caută constructori, marmura e asigurată.',
+    odoacer: 'Odoacru trimite însemnele imperiale la Constantinopol: un singur împărat, spune el, ajunge.',
+    robigalia: 'Fermierii sărbătoresc Robigalia, rugându-l pe zeul Robigus să ferească grâul de rugină.',
+    testaccio: 'Monte Testaccio crește tot mai înalt. Amforele sparte se numără deja cu milioanele.',
+    aqueductPipes: 'Comisarul apelor raportează din nou țevi ilegale racordate la apeducte.',
+    legionPace: 'Legionarii bombăne din cauza pasului regulamentar: douăzeci de mile romane în cinci ore.',
+    pirates: 'Pirații cilicieni jefuiesc coasta. Senatul dezbate o comandă extraordinară pe mare.',
+    ballista: 'Inginerii testează o nouă armă cu torsiune. Vecinii cer un hobby mai liniștit.',
+    vestals: 'Vestalele raportează că focul sacru arde încă puternic.',
+    catoFilibuster: 'Ședința Senatului se încheie la apus, după ce Cato cel Tânăr a vorbit până s-a întunecat.',
+  },
+
+  chapters: {
+    founding: {
+      title: 'Întemeierea Romei',
+      motto: 'Ab urbe condita',
+      text: [
+        'Legenda vorbește despre gemenii Romulus și Remus, aruncați în Tibru și alăptați de o lupoaică. Ajunși bărbați, au hotărât să întemeieze o cetate pe dealurile unde fuseseră salvați. Romulus a tras cu plugul o brazdă sacră, pomerium, în jurul Palatinului. Când Remus a luat-o în râs și a sărit peste ea, Romulus l-a ucis. Cetatea a primit numele învingătorului.',
+        'Roma este o mână de colibe deasupra unei mlaștini. Într-o zi, romanii își vor număra anii de la această clipă, ab urbe condita, „de la întemeierea cetății”. Fiecare monedă pe care o aduni clădește ce urmează.',
+      ],
+    },
+    republic: {
+      title: 'Res Publica',
+      motto: 'Senatul și Poporul Roman',
+      text: [
+        'Al șaptelea rege, Tarquinius Superbus, domnea prin teamă. Când fiul său a necinstit-o pe nobila Lucreția, Lucius Iunius Brutus a jurat pe pumnalul ei că va izgoni familia regală din Roma. Poporul s-a ridicat alături de el, iar Tarquinii au fugit.',
+        'Romanii au jurat să nu mai îndure niciodată un rege. În locul lui, în fiecare an erau aleși doi consuli, fiecare putând să se opună celuilalt. Puterea aparținea acum „lucrului public”: res publica.',
+      ],
+    },
+    gauls: {
+      title: 'Vae victis',
+      motto: 'Vai de cei învinși',
+      text: [
+        'Galii conduși de căpetenia Brennus au zdrobit o armată romană la Allia și au năvălit într-o cetate fără apărare. Doar Capitoliul a rezistat. Când galii l-au escaladat noaptea, gâștele sacre ale Iunonei au dat alarma, iar apărătorii i-au respins.',
+        'Înfometați, romanii au acceptat să-și cumpere libertatea cu o mie de livre de aur. Când s-au plâns că greutățile galilor erau măsluite, Brennus și-a aruncat sabia pe cântar: „Vae victis!” Ce va răspunde Roma?',
+      ],
+      choices: {
+        pay: {
+          label: 'Plătește aurul',
+          desc: 'Galii își iau răscumpărarea și pleacă. Roma se reconstruiește, iar ogoarele sunt lucrate în pace.',
+          note: 'Așa povestește istoricul grec Polibiu.',
+        },
+        iron: {
+          label: 'Non auro, sed ferro',
+          desc: 'Generalul exilat Camillus sosește în timpul cântăririi: „Roma se răscumpără cu fier, nu cu aur.” Galii sunt alungați.',
+          note: 'Așa povestește Titus Livius, deși mulți istorici se îndoiesc.',
+        },
+      },
+    },
+    appia: {
+      title: 'Regina drumurilor',
+      motto: 'Regina viarum',
+      text: [
+        'Cenzorul Appius Claudius Caecus a început două lucrări care aveau să definească Roma. Prima a fost un drum pavat spre sud, până la Capua, Via Appia, numită mai târziu „regina drumurilor”. Porțiuni din ea se străbat și astăzi.',
+        'A doua a fost Aqua Appia, primul apeduct al Romei. Aducea apă de izvor în cetate pe mai bine de șaisprezece kilometri, aproape în întregime pe sub pământ. Drumurile și apa aveau să urmeze Roma oriunde mergeau legiunile ei.',
+      ],
+    },
+    navy: {
+      title: 'Roma ia drumul mării',
+      motto: 'Mare nostrum',
+      text: [
+        'Războiul cu Cartagina, marea putere maritimă a Africii, a găsit Roma aproape fără flotă. Copiind o navă cartagineză eșuată, romanii au construit peste o sută de corăbii în vreo șaizeci de zile, antrenându-și vâslașii pe bănci așezate pe uscat.',
+        'Au adăugat corvus, o pasarelă de abordaj cu țepi care transforma lupta pe mare într-una pe uscat. La Mylae, în 260 î.Hr., consulul Gaius Duilius a obținut prima mare victorie navală a Romei.',
+      ],
+    },
+    hannibal: {
+      title: 'Hannibal la porți',
+      motto: 'Hannibal ad portas',
+      text: [
+        'Hannibal din Cartagina a trecut Alpii cu o armată și elefanți de război și a nimicit forțele romane la Trebia și la lacul Trasimen. La Cannae a încercuit o armată romană mult mai mare și a distrus-o, poate cea mai sângeroasă zi din istoria Romei.',
+        'Roma a refuzat să facă pace. În acești ani disperați, pe la 211 î.Hr., statul a început să bată o nouă monedă de argint: dinarul. Cum ar trebui Roma să lupte mai departe?',
+      ],
+      choices: {
+        fabius: {
+          label: 'Fabius Întârzietorul',
+          desc: 'Evită bătăliile decisive. Urmărește-l pe Hannibal, taie-i proviziile și lasă timpul să-l macine.',
+          note: 'Roma a adoptat această strategie după Cannae, iar Fabius a primit porecla Cunctator.',
+        },
+        scipio: {
+          label: 'Scipio în Africa',
+          desc: 'Du războiul chiar la Cartagina și silește-l pe Hannibal să se întoarcă s-o apere.',
+          note: 'Scipio a făcut întocmai și l-a învins pe Hannibal la Zama în 202 î.Hr.',
+        },
+      },
+    },
+    carthage: {
+      title: 'Carthago delenda est',
+      motto: 'Cartagina trebuie distrusă',
+      text: [
+        'Ani la rând, Cato cel Bătrân își încheia fiecare discurs în Senat, oricare ar fi fost subiectul, cu aceleași cuvinte: „Cartagina trebuie distrusă.” În 146 î.Hr., după un asediu de trei ani, Scipio Aemilianus a rasat cetatea. În același an, armatele romane au jefuit Corintul.',
+        'Mediterana devenea ceea ce romanii numeau mare nostrum, „marea noastră”. (Povestea că Roma ar fi presărat sare pe ogoarele Cartaginei este o invenție modernă.)',
+      ],
+    },
+    marius: {
+      title: 'Catârii lui Marius',
+      motto: 'Muli Mariani',
+      text: [
+        'Gaius Marius, un „om nou” fără strămoși nobili, avea să fie consul de șapte ori. Tradiția îi atribuie refacerea legiunii: acum se puteau înrola și săracii fără pământ, înarmați de stat și cu promisiunea de pământ la lăsarea la vatră.',
+        'Soldații săi își purtau singuri echipamentul greu și au fost porecliți „catârii lui Marius”. Fiecare legiune a adoptat vulturul de argint, aquila, ca stindard sacru. Dar soldații își așteptau acum răsplata de la general, nu de la Senat, un pericol care avea să se adeverească în curând.',
+      ],
+    },
+    rubicon: {
+      title: 'Rubiconul',
+      motto: 'Alea iacta est',
+      text: [
+        'Iulius Caesar a cucerit Galia, iar legiunile îl adoră. Dușmanii săi din Senat îi ordonă să renunțe la armată și să se întoarcă la Roma ca simplu cetățean, unde îl așteaptă procesul.',
+        'În ianuarie 49 î.Hr., se oprește la Rubicon, râulețul care marchează granița provinciei sale. Să-l treacă înarmat înseamnă trădare și război civil.',
+      ],
+      choices: {
+        cross: {
+          label: 'Alea iacta est',
+          desc: '„Zarul a fost aruncat.” Trece râul și mărșăluiește asupra Romei.',
+          note: 'Caesar a trecut. Pompei și o mare parte din Senat au fugit în câteva zile.',
+        },
+        obey: {
+          label: 'Ascultă de Senat',
+          desc: 'Renunță la comandă și ai încredere că vechea Republică va dăinui.',
+          note: 'Caesar nu a făcut-o. Istoricii încă dezbat dacă Republica ar fi supraviețuit altfel.',
+        },
+      },
+    },
+    ides: {
+      title: 'Idele lui Martie',
+      motto: 'Kai su, teknon?',
+      text: [
+        'Numit dictator pe viață, Caesar a venit la ședința Senatului din 15 martie 44 î.Hr., în Teatrul lui Pompei. Un grup de senatori conduși de Brutus și Cassius au scos pumnalele și l-au lovit de douăzeci și trei de ori. „Et tu, Brute?” e replica lui Shakespeare. Suetonius scrie că, după unii, Caesar ar fi spus în greacă: „Și tu, copile?”',
+        'Asasinii voiau să salveze Republica. În schimb au urmat încă treisprezece ani de război civil. Senatul l-a declarat zeu pe dictatorul ucis, Divus Iulius, iar un templu s-a înălțat unde i-a fost ars trupul.',
+      ],
+    },
+    augustus: {
+      title: 'Augustus',
+      motto: 'Pax Romana',
+      text: [
+        'Moștenitorul adoptiv al lui Caesar, Octavian, i-a învins pe Antonius și Cleopatra la Actium în 31 î.Hr. În 27 î.Hr., Senatul i-a dat un nume nou: Augustus, „cel venerat”. El își spunea doar princeps, „primul cetățean”, păstrând formele Republicii și deținând toată puterea ei.',
+        'Se lăuda că a găsit Roma din cărămidă și a lăsat-o din marmură. Porțile templului lui Ianus, deschise în vreme de război, s-au închis. Începeau două secole de Pax Romana.',
+      ],
+    },
+    colosseum: {
+      title: 'Pâine și circ',
+      motto: 'Panem et circenses',
+      text: [
+        'Vespasian a ridicat un amfiteatru uriaș pe locul lacului secat al urâtului palat al lui Nero. Fiul său, Titus, l-a inaugurat în 80 d.Hr. cu o sută de zile de jocuri. Vreo cincizeci de mii de spectatori priveau gladiatori, vânători de fiare și execuții.',
+        'Poetul Juvenal batjocorea un popor care odinioară împărțea armate și consulate și care acum își dorea doar două lucruri: pâine și circ. Fortuna îi favorizează pe cei care dau mulțimii ce-și dorește.',
+      ],
+    },
+    trajan: {
+      title: 'Optimus Princeps',
+      motto: 'Cel mai bun dintre împărați',
+      text: [
+        'Traian, primul împărat născut în afara Italiei, a cucerit Dacia, iar minele ei de aur au plătit un nou Forum. Columna sa stă și azi la Roma, iar friza ei în spirală arată legiunile mărșăluind, construind și trăgând cu mașinile lor de război.',
+        'A înaintat spre răsărit până la Golful Persic. La moartea sa, în 117 d.Hr., imperiul a atins cea mai mare întindere, din Britannia până în Mesopotamia. Senatul îi ura fiecărui nou împărat să fie „mai norocos decât Augustus, mai bun decât Traian”.',
+      ],
+    },
+    crisis: {
+      title: 'Criza secolului al III-lea',
+      motto: 'Imperium fractum',
+      text: [
+        'După uciderea lui Severus Alexander, imperiul s-a sfâșiat singur. În cincizeci de ani, vreo două duzini de oameni au pretins purpura, cei mai mulți uciși de propriii soldați. Au urmat ciuma și invaziile perșilor și goților. Pentru o vreme, imperiul s-a rupt în trei.',
+        'Ca să-și plătească armatele, împărații tot micșorau argintul din dinar, până când acesta a ajuns aproape bronz cu o spoială de argint. Prețurile au explodat. Cum ții imperiul unit?',
+      ],
+      choices: {
+        debase: {
+          label: 'Devalorizează moneda',
+          desc: 'Bate mai multe monede cu mai puțin argint. Bani ușori acum, putreziciune dedesubt.',
+          note: 'Exact asta au făcut împărații crizei.',
+        },
+        diocletian: {
+          label: 'Reformele lui Dioclețian',
+          desc: 'Împarte puterea între patru împărați și reclădește armata și impozitele din temelii.',
+          note: 'Dioclețian a pus capăt crizei începând cu 284 d.Hr., deși faimosul său edict al prețurilor a eșuat.',
+        },
+      },
+    },
+    constantine: {
+      title: 'Nova Roma',
+      motto: 'In hoc signo vinces',
+      text: [
+        'Înaintea bătăliei de la Podul Milvius, în 312, se spune că lui Constantin i s-a arătat un semn pe cer și a auzit cuvintele: „Prin acest semn vei învinge.” A învins, iar în anul următor Edictul de la Milano le-a dat creștinilor libertatea credinței.',
+        'În 330 d.Hr. a închinat o nouă capitală pe Bosfor, la răscrucea drumurilor comerciale dintre Europa și Asia: Nova Roma, numită curând Constantinopol.',
+      ],
+    },
+    fall: {
+      title: 'Căderea Apusului',
+      motto: 'Sic transit gloria mundi',
+      text: [
+        'În 410, vizigoții lui Alaric au jefuit Roma, prima armată străină între zidurile ei de la Brennus încoace, cu opt sute de ani în urmă. În 476, generalul Odoacru l-a detronat pe tânărul împărat Romulus Augustulus, purtătorul numelor întemeietorului Romei și ale primului ei împărat, și a trimis însemnele imperiale la Constantinopol. Apusul nu mai avea împărat.',
+        'Și totuși Roma nu s-a sfârșit. Legile, limba și drumurile ei i-au supraviețuit, iar în Răsărit imperiul a mai dăinuit o mie de ani, până în 1453. Domnia ta e acum istorie. Îmbracă purpura și lasă Roma să renască.',
+      ],
+    },
+  },
+}
