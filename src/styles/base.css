@@ -1,0 +1,84 @@
+:root {
+  --crimson-900: #2a0a0f;
+  --crimson-800: #3d0e16;
+  --crimson-700: #5c1520;
+  --crimson-600: #7a1c2a;
+  --gold-300: #f6dc8f;
+  --gold-400: #f0c75e;
+  --gold-600: #b8902f;
+  --marble: #f3ece0;
+  --marble-dim: #c9bfae;
+  --panel: rgba(20, 5, 8, 0.62);
+  --border: rgba(240, 199, 94, 0.28);
+  --radius: 10px;
+  --font-display: 'Cinzel', 'Trajan Pro', 'Palatino Linotype', Georgia, serif;
+  --font-body: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--marble);
+  font-family: var(--font-body);
+  background: radial-gradient(ellipse at 50% 0%, var(--crimson-600), var(--crimson-800) 45%, var(--crimson-900)) fixed;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  backdrop-filter: blur(4px);
+}
+
+.panel__title {
+  font-size: 1.05rem;
+  color: var(--gold-400);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.panel__title small {
+  font-family: var(--font-body);
+  color: var(--marble-dim);
+  font-size: 0.75rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.muted {
+  color: var(--marble-dim);
+}
