@@ -1,11 +1,13 @@
 import { useRef, useState } from 'react'
 import { ICONS } from '../game/data.js'
 import { formatNumber } from '../game/format.js'
+import { OMENS_BY_ID } from '../game/omens.js'
+import '../styles/omens.css'
 import '../styles/click-area.css'
 
 const FLOATER_LIFETIME_MS = 900
 
-export default function ClickArea({ denarii, perClick, perSecond, onClick }) {
+export default function ClickArea({ denarii, perClick, perSecond, buffs, onClick }) {
   const areaRef = useRef(null)
   const nextId = useRef(0)
   const [floaters, setFloaters] = useState([])
@@ -39,6 +41,21 @@ export default function ClickArea({ denarii, perClick, perSecond, onClick }) {
         <img src={ICONS.eagle} alt="" draggable="false" />
       </button>
       <div className="click-area__hint muted">+{formatNumber(perClick)} per click</div>
+
+      {buffs.length > 0 && (
+        <div className="buffs">
+          {buffs.map((b) => {
+            const omen = OMENS_BY_ID[b.id]
+            const left = Math.max(Math.ceil((b.until - Date.now()) / 1000), 0)
+            return (
+              <span key={b.id} className="buff" title={omen.text}>
+                <img src={omen.icon} alt="" />
+                {omen.name}: {b.target === 'click' ? 'clicks' : 'production'} ×{b.mult} · {left}s
+              </span>
+            )
+          })}
+        </div>
+      )}
 
       {floaters.map((f) => (
         <span key={f.id} className="floater" style={{ left: f.x, top: f.y }}>
