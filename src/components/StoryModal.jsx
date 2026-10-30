@@ -34,6 +34,11 @@ export default function StoryModal({ chapter, mode, chosen, onChoose, onClose })
         aria-labelledby="story-title"
         onClick={(e) => e.stopPropagation()}
       >
+        {canClose && (
+          <button className="scroll__close" onClick={onClose} aria-label="Close">
+            ×
+          </button>
+        )}
         <header className="scroll__head">
           <img src={chapter.icon} alt="" />
           <div className="scroll__kicker">

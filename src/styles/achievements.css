@@ -84,14 +84,23 @@
   }
 }
 
+/* The backdrop is the scroller: a dialog taller than the screen (common on
+   phones, where 100vh hides behind the browser toolbar) scrolls into view
+   instead of losing its buttons off the bottom edge. */
 .modal-backdrop {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.65);
-  display: grid;
-  place-items: center;
+  display: flex;
   z-index: 30;
   padding: 16px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* margin: auto centers when the dialog fits and pins it to the top when it doesn't */
+.modal-backdrop > * {
+  margin: auto;
 }
 
 .modal {
