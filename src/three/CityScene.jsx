@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
@@ -9,6 +9,79 @@ import { Castra, Century, Farm, Forum, G, House, M, Market, Senate, Spawn, Templ
 const prefersReducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 const coarsePointer = () => window.matchMedia?.('(pointer: coarse)').matches
 
+// On touch screens the orbit controls would swallow every gesture and trap the
+// page. Instead the browser keeps vertical swipes (page scroll) and we take the
+// rest: a horizontal swipe spins the island, a pinch zooms.
+const UP = new THREE.Vector3(0, 1, 0)
+
+// radians of spin for a pixel of horizontal swipe: a full phone-width swipe is about half a turn
+const SWIPE_RADIANS_PER_PX = 0.008
+
+function attachTouch(controls, element, onStart, onEnd) {
+  const camera = controls.object
+  const pointers = new Map()
+  // Gestures are measured from where they began, not move by move, so extra or
+  // coalesced pointer events can never compound into a runaway spin.
+  let gesture = null
+
+  controls.enabled = false
+  element.style.touchAction = 'pan-y'
+
+  const spread = () => {
+    const [a, b] = [...pointers.values()]
+    return Math.hypot(a.x - b.x, a.y - b.y)
+  }
+
+  const begin = () => {
+    const first = [...pointers.values()][0]
+    gesture = {
+      offset: camera.position.clone().sub(controls.target),
+      x: first.x,
+      spread: pointers.size === 2 ? spread() : 0,
+    }
+  }
+
+  const down = (e) => {
+    if (e.pointerType !== 'touch') return
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+    if (pointers.size === 1) onStart()
+    begin()
+  }
+
+  const move = (e) => {
+    if (!pointers.has(e.pointerId) || !gesture) return
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+    const offset = gesture.offset.clone()
+    if (pointers.size === 1) {
+      offset.applyAxisAngle(UP, -(e.clientX - gesture.x) * SWIPE_RADIANS_PER_PX)
+    } else if (pointers.size === 2 && gesture.spread > 0) {
+      const length = offset.length() * (gesture.spread / spread())
+      offset.setLength(Math.min(controls.maxDistance, Math.max(controls.minDistance, length)))
+    }
+    camera.position.copy(controls.target).add(offset)
+  }
+
+  const up = (e) => {
+    if (!pointers.delete(e.pointerId)) return
+    if (pointers.size === 0) {
+      gesture = null
+      onEnd()
+    } else {
+      begin() // pinch ended with a finger still down: carry on rotating from here
+    }
+  }
+
+  element.addEventListener('pointerdown', down)
+  element.addEventListener('pointermove', move)
+  // a vertical swipe becomes a page scroll and cancels the pointer
+  for (const type of ['pointerup', 'pointercancel', 'pointerleave']) element.addEventListener(type, up)
+  return () => {
+    element.removeEventListener('pointerdown', down)
+    element.removeEventListener('pointermove', move)
+    for (const type of ['pointerup', 'pointercancel', 'pointerleave']) element.removeEventListener(type, up)
+  }
+}
+
 // how much of the island must fit on screen, in world units: nearly the full
 // width (it may tuck slightly under the panels) and its top plus some underside
 const FIT_HALF_WIDTH = 14.5
@@ -16,11 +89,45 @@ const FIT_HALF_HEIGHT = 9.5
 
 function CameraRig({ frame }) {
   const { camera, gl, scene, size } = useThree()
-  const controls = useMemo(() => new OrbitControls(camera, gl.domElement), [camera, gl])
+  const [controls, setControls] = useState(null)
+
+  // The controls are created and disposed by this effect, so none can leak:
+  // a stray instance (StrictMode mounts twice in dev) would still answer drags.
+  useEffect(() => {
+    const reduced = prefersReducedMotion()
+    const orbit = new OrbitControls(camera, gl.domElement)
+    orbit.target.set(0, 0.4, 0)
+    orbit.enableDamping = true
+    orbit.enablePan = false
+    orbit.minPolarAngle = 0.55
+    orbit.maxPolarAngle = 1.25
+    orbit.autoRotate = !reduced
+    orbit.autoRotateSpeed = 0.35
+    let resume
+    const onStart = () => {
+      orbit.autoRotate = false
+      clearTimeout(resume)
+    }
+    const onEnd = () => {
+      resume = setTimeout(() => (orbit.autoRotate = !reduced), 4000)
+    }
+    orbit.addEventListener('start', onStart)
+    orbit.addEventListener('end', onEnd)
+    const detachTouch = coarsePointer() ? attachTouch(orbit, gl.domElement, onStart, onEnd) : () => {}
+    setControls(orbit)
+    return () => {
+      clearTimeout(resume)
+      detachTouch()
+      orbit.removeEventListener('start', onStart)
+      orbit.removeEventListener('end', onEnd)
+      orbit.dispose()
+    }
+  }, [camera, gl])
 
   // Frame Rome in the open space between the HUD panels: shift the projection
   // so the island is centered there, and pick the distance that fills it.
   useEffect(() => {
+    if (!controls) return
     const freeWidth = Math.max(size.width - frame.left - frame.right, size.width * 0.4)
     const freeHeight = Math.max(size.height - frame.top, size.height * 0.6)
     const tanHalfFov = Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)
@@ -46,39 +153,7 @@ function CameraRig({ frame }) {
     }
   }, [size.width, size.height, frame, camera, controls, scene])
 
-  useEffect(() => {
-    const reduced = prefersReducedMotion()
-    controls.target.set(0, 0.4, 0)
-    controls.enableDamping = true
-    controls.enablePan = false
-    controls.minPolarAngle = 0.55
-    controls.maxPolarAngle = 1.25
-    controls.autoRotate = !reduced
-    controls.autoRotateSpeed = 0.35
-    if (coarsePointer()) {
-      // on touch screens let the page scroll; the city turns by itself
-      controls.enabled = false
-      gl.domElement.style.touchAction = 'pan-y'
-    }
-    let resume
-    const onStart = () => {
-      controls.autoRotate = false
-      clearTimeout(resume)
-    }
-    const onEnd = () => {
-      resume = setTimeout(() => (controls.autoRotate = !reduced), 4000)
-    }
-    controls.addEventListener('start', onStart)
-    controls.addEventListener('end', onEnd)
-    return () => {
-      clearTimeout(resume)
-      controls.removeEventListener('start', onStart)
-      controls.removeEventListener('end', onEnd)
-      controls.dispose()
-    }
-  }, [controls, gl])
-
-  useFrame(() => controls.update())
+  useFrame(() => controls?.update())
   return null
 }
 
