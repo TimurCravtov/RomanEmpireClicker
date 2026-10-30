@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { LANGUAGES, useI18n } from '../i18n/index.jsx'
 import { useSettings } from '../settings.jsx'
 import '../styles/settings.css'
@@ -126,7 +127,9 @@ export default function SettingsButtons() {
           <GearIcon />
         </button>
       </div>
-      {open && <SettingsDialog onClose={() => setOpen(false)} />}
+      {/* portal out of the HUD: it ignores the pointer (so drags reach the city),
+          and the dialog would inherit that and let clicks fall through */}
+      {open && createPortal(<SettingsDialog onClose={() => setOpen(false)} />, document.body)}
     </>
   )
 }
