@@ -1,0 +1,124 @@
+.achievements {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+  gap: 8px;
+}
+
+.achievement {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--gold-600);
+  border-radius: 8px;
+}
+
+.achievement img {
+  width: 70%;
+  height: 70%;
+}
+
+.achievement--locked {
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--marble-dim);
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+}
+
+.toasts {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 20;
+  max-width: calc(100vw - 32px);
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--crimson-900);
+  border: 1px solid var(--gold-400);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  animation: toast-in 0.25s ease-out;
+}
+
+.toast img {
+  width: 36px;
+  height: 36px;
+}
+
+.toast__title {
+  font-family: var(--font-display);
+  color: var(--gold-300);
+  font-weight: 700;
+}
+
+.toast__desc {
+  font-size: 0.8rem;
+  color: var(--marble-dim);
+}
+
+@keyframes toast-in {
+  from {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: grid;
+  place-items: center;
+  z-index: 30;
+  padding: 16px;
+}
+
+.modal {
+  max-width: 380px;
+  text-align: center;
+  background: var(--crimson-800);
+  border: 1px solid var(--gold-400);
+  border-radius: 12px;
+  padding: 22px;
+}
+
+.modal h2 {
+  color: var(--gold-400);
+  margin-bottom: 8px;
+}
+
+.btn {
+  background: var(--gold-600);
+  color: var(--crimson-900);
+  font-family: var(--font-display);
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  margin-top: 14px;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--gold-400);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+}
+
+.ascend p {
+  margin: 0 0 4px;
+  font-size: 0.85rem;
+}
+
+.ascend strong {
+  color: var(--gold-300);
+}
